@@ -1,0 +1,31 @@
+Default flags time: 2805
+Generation 1
+-XX:-UseAdaptiveSizePolicy -XX:InitialSurvivorRatio=12 -XX:MinSurvivorRatio=5 -XX:SurvivorPadding=5 -XX:TargetSurvivorRatio=75 -XX:+UseSerialGC
+  Time: 2650
+Generation 2
+-XX:+UseAdaptiveSizePolicy -XX:-UseAdaptiveSizeDecayMajorGCCost -XX:-UseAdaptiveGenerationSizePolicyAtMajorCollection -XX:-UseAdaptiveGenerationSizePolicyAtMinorCollection -XX:AdaptiveSizePolicyCollectionCostMargin=75 -XX:AdaptiveSizePolicyOutputInterval=75 -XX:AdaptiveSizePolicyWeight=10 -XX:AdaptiveSizeThroughPutPolicy=1 -XX:GCTimeRatio=77 -XX:MaxGCPauseMillis=150 -XX:TenuredGenerationSizeIncrement=30 -XX:TenuredGenerationSizeSupplement=50 -XX:TenuredGenerationSizeSupplementDecay=1 -XX:YoungGenerationSizeIncrement=25 -XX:YoungGenerationSizeSupplement=100 -XX:YoungGenerationSizeSupplementDecay=1 -XX:AdaptiveSizeDecrementScaleFactor=3 -XX:+UseParallelGC -XX:-UseDynamicNumberOfGCThreads -XX:HeapFirstMaximumCompactionCount=5 -XX:ParallelGCBufferWastePct=15 -XX:ParallelOldDeadWoodLimiterMean=45 -XX:ParallelOldDeadWoodLimiterStdDev=80 -XX:-PSChunkLargeArrays
+  Time: 2651
+Generation 3
+-XX:+UseAdaptiveSizePolicy -XX:-UseAdaptiveSizeDecayMajorGCCost -XX:+UseAdaptiveSizePolicyWithSystemGC -XX:-UseAdaptiveGenerationSizePolicyAtMajorCollection -XX:AdaptiveSizePolicyCollectionCostMargin=25 -XX:AdaptiveSizePolicyOutputInterval=25 -XX:AdaptiveSizePolicyWeight=0 -XX:AdaptiveSizeThroughPutPolicy=1 -XX:GCTimeRatio=99 -XX:MaxGCPauseMillis=250 -XX:TenuredGenerationSizeIncrement=10 -XX:TenuredGenerationSizeSupplementDecay=4 -XX:YoungGenerationSizeIncrement=15 -XX:YoungGenerationSizeSupplement=60 -XX:YoungGenerationSizeSupplementDecay=2 -XX:AdaptiveSizeDecrementScaleFactor=4 -XX:+UseParallelGC -XX:-UseDynamicNumberOfGCThreads -XX:-UseMaximumCompactionOnSystemGC -XX:HeapMaximumCompactionInterval=20 -XX:HeapFirstMaximumCompactionCount=2 -XX:ParallelGCBufferWastePct=15 -XX:ParallelOldDeadWoodLimiterMean=55 -XX:ParallelOldDeadWoodLimiterStdDev=60
+  Time: 2690
+Generation 4
+-XX:-UseAdaptiveSizePolicy -XX:InitialSurvivorRatio=8 -XX:MinSurvivorRatio=5 -XX:SurvivorPadding=5 -XX:+UseSerialGC
+  Time: 2662
+Generation 5
+-XX:+UseAdaptiveSizePolicy -XX:+UseAdaptiveSizeDecayMajorGCCost -XX:+UseAdaptiveSizePolicyWithSystemGC -XX:AdaptiveSizeMajorGCDecayTimeScale=10 -XX:AdaptiveSizePolicyCollectionCostMargin=25 -XX:AdaptiveSizePolicyInitializingSteps=15 -XX:AdaptiveSizePolicyWeight=50 -XX:AdaptiveSizeThroughPutPolicy=0 -XX:GCTimeRatio=143 -XX:MaxGCPauseMillis=400 -XX:TenuredGenerationSizeIncrement=15 -XX:TenuredGenerationSizeSupplement=60 -XX:YoungGenerationSizeSupplement=60 -XX:YoungGenerationSizeSupplementDecay=4 -XX:AdaptiveSizeDecrementScaleFactor=6 -XX:+UseSerialGC
+  Time: 2694
+Generation 6
+-XX:+UseAdaptiveSizePolicy -XX:-UseAdaptiveSizeDecayMajorGCCost -XX:+UseAdaptiveSizePolicyWithSystemGC -XX:AdaptiveSizePolicyCollectionCostMargin=45 -XX:AdaptiveSizePolicyInitializingSteps=15 -XX:AdaptiveSizePolicyWeight=40 -XX:AdaptiveSizeThroughPutPolicy=1 -XX:GCTimeRatio=99 -XX:MaxGCPauseMillis=400 -XX:TenuredGenerationSizeIncrement=15 -XX:TenuredGenerationSizeSupplement=80 -XX:YoungGenerationSizeIncrement=25 -XX:YoungGenerationSizeSupplement=100 -XX:YoungGenerationSizeSupplementDecay=4 -XX:AdaptiveSizeDecrementScaleFactor=5 -XX:+UseSerialGC
+  Time: 2685
+Generation 7
+-XX:+UseAdaptiveSizePolicy -XX:+UseAdaptiveSizeDecayMajorGCCost -XX:+UseAdaptiveSizePolicyWithSystemGC -XX:AdaptiveSizeMajorGCDecayTimeScale=10 -XX:AdaptiveSizePolicyCollectionCostMargin=45 -XX:AdaptiveSizePolicyInitializingSteps=15 -XX:AdaptiveSizePolicyWeight=50 -XX:AdaptiveSizeThroughPutPolicy=0 -XX:GCTimeRatio=77 -XX:MaxGCPauseMillis=350 -XX:TenuredGenerationSizeSupplement=80 -XX:YoungGenerationSizeIncrement=25 -XX:YoungGenerationSizeSupplementDecay=4 -XX:AdaptiveSizeDecrementScaleFactor=6 -XX:+UseParallelGC -XX:HeapMaximumCompactionInterval=15 -XX:HeapFirstMaximumCompactionCount=4 -XX:ParallelGCBufferWastePct=5 -XX:ParallelOldDeadWoodLimiterMean=35 -XX:ParallelOldDeadWoodLimiterStdDev=80
+  Time: 2685
+Generation 8
+-XX:+UseAdaptiveSizePolicy -XX:+UseAdaptiveSizeDecayMajorGCCost -XX:+UseAdaptiveSizePolicyWithSystemGC -XX:-UseAdaptiveGenerationSizePolicyAtMajorCollection -XX:AdaptiveSizeMajorGCDecayTimeScale=15 -XX:AdaptiveSizePolicyCollectionCostMargin=25 -XX:AdaptiveSizePolicyOutputInterval=25 -XX:AdaptiveSizeThroughPutPolicy=1 -XX:GCTimeRatio=99 -XX:MaxGCPauseMillis=250 -XX:TenuredGenerationSizeIncrement=10 -XX:TenuredGenerationSizeSupplement=60 -XX:YoungGenerationSizeSupplement=60 -XX:YoungGenerationSizeSupplementDecay=2 -XX:AdaptiveSizeDecrementScaleFactor=6 -XX:+UseParallelGC -XX:-UseDynamicNumberOfGCThreads -XX:-UseMaximumCompactionOnSystemGC -XX:HeapMaximumCompactionInterval=25 -XX:HeapFirstMaximumCompactionCount=4 -XX:ParallelGCBufferWastePct=5 -XX:ParallelOldDeadWoodLimiterMean=35 -XX:ParallelOldDeadWoodLimiterStdDev=60
+  Time: 2666
+Generation 9
+-XX:+UseAdaptiveSizePolicy -XX:+UseAdaptiveSizeDecayMajorGCCost -XX:-UseAdaptiveSizePolicyFootprintGoal -XX:+UseAdaptiveSizePolicyWithSystemGC -XX:AdaptiveSizeMajorGCDecayTimeScale=15 -XX:AdaptiveSizePolicyCollectionCostMargin=25 -XX:AdaptiveSizeThroughPutPolicy=1 -XX:GCTimeRatio=99 -XX:MaxGCPauseMillis=250 -XX:TenuredGenerationSizeSupplement=60 -XX:TenuredGenerationSizeSupplementDecay=4 -XX:YoungGenerationSizeIncrement=10 -XX:YoungGenerationSizeSupplement=60 -XX:YoungGenerationSizeSupplementDecay=2 -XX:AdaptiveSizeDecrementScaleFactor=2 -XX:+UseParallelGC -XX:HeapMaximumCompactionInterval=25 -XX:HeapFirstMaximumCompactionCount=4 -XX:ParallelOldDeadWoodLimiterMean=35 -XX:ParallelOldDeadWoodLimiterStdDev=80
+  Time: 2637
+Generation 10
+-XX:+UseAdaptiveSizePolicy -XX:+UseAdaptiveSizeDecayMajorGCCost -XX:+UseAdaptiveSizePolicyWithSystemGC -XX:AdaptiveSizeMajorGCDecayTimeScale=10 -XX:AdaptiveSizePolicyCollectionCostMargin=45 -XX:AdaptiveSizePolicyInitializingSteps=15 -XX:AdaptiveSizePolicyWeight=50 -XX:AdaptiveSizeThroughPutPolicy=1 -XX:GCTimeRatio=99 -XX:MaxGCPauseMillis=350 -XX:TenuredGenerationSizeSupplement=80 -XX:YoungGenerationSizeIncrement=25 -XX:YoungGenerationSizeSupplementDecay=4 -XX:AdaptiveSizeDecrementScaleFactor=6 -XX:+UseParallelGC -XX:HeapMaximumCompactionInterval=25 -XX:HeapFirstMaximumCompactionCount=4 -XX:ParallelGCBufferWastePct=5 -XX:ParallelOldDeadWoodLimiterMean=55 -XX:ParallelOldDeadWoodLimiterStdDev=80
+  Time: 2676

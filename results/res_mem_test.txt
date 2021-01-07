@@ -1,0 +1,31 @@
+Default flags time: 6.214048194885254
+Generation 1
+-XX:-UseAdaptiveSizePolicy -XX:SurvivorRatio=4 -XX:InitialSurvivorRatio=8 -XX:SurvivorPadding=4 -XX:TargetSurvivorRatio=35
+  Time: 4.743163132667542
+Generation 2
+-XX:-UseAdaptiveSizePolicy -XX:SurvivorRatio=4 -XX:InitialSurvivorRatio=8 -XX:SurvivorPadding=4 -XX:TargetSurvivorRatio=35
+  Time: 4.643520736694336
+Generation 3
+-XX:-UseAdaptiveSizePolicy -XX:SurvivorRatio=4 -XX:MinSurvivorRatio=4 -XX:SurvivorPadding=4 -XX:TargetSurvivorRatio=35
+  Time: 4.642719888687134
+Generation 4
+-XX:-UseAdaptiveSizePolicy -XX:SurvivorRatio=6 -XX:InitialSurvivorRatio=4 -XX:MinSurvivorRatio=3 -XX:SurvivorPadding=3 -XX:TargetSurvivorRatio=25
+  Time: 4.533358716964722
+Generation 5
+-XX:-UseAdaptiveSizePolicy -XX:SurvivorRatio=4 -XX:SurvivorPadding=4 -XX:TargetSurvivorRatio=25
+  Time: 4.653028392791748
+Generation 6
+-XX:-UseAdaptiveSizePolicy -XX:SurvivorRatio=4 -XX:InitialSurvivorRatio=8 -XX:SurvivorPadding=1 -XX:TargetSurvivorRatio=35
+  Time: 4.6539555311203005
+Generation 7
+-XX:-UseAdaptiveSizePolicy -XX:SurvivorRatio=4 -XX:SurvivorPadding=4 -XX:TargetSurvivorRatio=35
+  Time: 4.65272901058197
+Generation 8
+-XX:-UseAdaptiveSizePolicy -XX:SurvivorRatio=4 -XX:InitialSurvivorRatio=8 -XX:MinSurvivorRatio=4 -XX:SurvivorPadding=1 -XX:TargetSurvivorRatio=65
+  Time: 4.6530526638031
+Generation 9
+-XX:-UseAdaptiveSizePolicy -XX:SurvivorRatio=4 -XX:InitialSurvivorRatio=8 -XX:SurvivorPadding=1 -XX:TargetSurvivorRatio=35
+  Time: 4.643324756622315
+Generation 10
+-XX:-UseAdaptiveSizePolicy -XX:SurvivorRatio=4 -XX:MinSurvivorRatio=4 -XX:SurvivorPadding=1 -XX:TargetSurvivorRatio=35
+  Time: 4.653280353546142

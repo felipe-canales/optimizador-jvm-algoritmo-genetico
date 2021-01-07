@@ -1,0 +1,31 @@
+Default flags time: 458
+Generation 1
+-XX:+UseAdaptiveSizePolicy -XX:-UseAdaptiveSizeDecayMajorGCCost -XX:-UseAdaptiveGenerationSizePolicyAtMajorCollection -XX:AdaptiveSizePolicyCollectionCostMargin=25 -XX:AdaptiveSizePolicyOutputInterval=25 -XX:AdaptiveSizePolicyWeight=30 -XX:AdaptiveSizeThroughPutPolicy=1 -XX:GCTimeRatio=143 -XX:MaxGCPauseMillis=100 -XX:TenuredGenerationSizeIncrement=10 -XX:TenuredGenerationSizeSupplementDecay=1 -XX:YoungGenerationSizeIncrement=15 -XX:YoungGenerationSizeSupplement=60 -XX:YoungGenerationSizeSupplementDecay=2 -XX:AdaptiveSizeDecrementScaleFactor=4 -XX:+UseParallelGC -XX:-UseDynamicNumberOfGCThreads -XX:HeapMaximumCompactionInterval=20 -XX:HeapFirstMaximumCompactionCount=3 -XX:ParallelGCBufferWastePct=15 -XX:ParallelOldDeadWoodLimiterMean=25 -XX:ParallelOldDeadWoodLimiterStdDev=100
+  Time: 421
+Generation 2
+-XX:-UseAdaptiveSizePolicy -XX:SurvivorRatio=4 -XX:InitialSurvivorRatio=6 -XX:MinSurvivorRatio=3 -XX:SurvivorPadding=1 -XX:TargetSurvivorRatio=75 -XX:+UseZGC -XX:ZAllocationSpikeTolerance=1.0  -XX:ZCollectionInterval=350 -XX:ZFragmentationLimit=30.0 -XX:ZMarkStackSpaceLimit=4G -XX:+ZUncommit -XX:ZUncommitDelay=450
+  Time: 423
+Generation 3
+-XX:-UseAdaptiveSizePolicy -XX:SurvivorRatio=4 -XX:InitialSurvivorRatio=10 -XX:MinSurvivorRatio=4 -XX:SurvivorPadding=2 -XX:TargetSurvivorRatio=35 -XX:+UseZGC -XX:ZAllocationSpikeTolerance=0.5 -XX:ZCollectionInterval=0 -XX:ZFragmentationLimit=25.0 -XX:+ZUncommit -XX:ZUncommitDelay=350
+  Time: 427
+Generation 4
+-XX:-UseAdaptiveSizePolicy -XX:SurvivorRatio=4 -XX:InitialSurvivorRatio=10 -XX:MinSurvivorRatio=4 -XX:SurvivorPadding=2 -XX:TargetSurvivorRatio=35 -XX:+UseZGC -XX:ZAllocationSpikeTolerance=0.5 -XX:ZCollectionInterval=0 -XX:ZFragmentationLimit=25.0 -XX:+ZUncommit -XX:ZUncommitDelay=350
+  Time: 428
+Generation 5
+-XX:+UseAdaptiveSizePolicy -XX:-UseAdaptiveSizeDecayMajorGCCost -XX:-UseAdaptiveGenerationSizePolicyAtMajorCollection -XX:AdaptiveSizePolicyCollectionCostMargin=25 -XX:AdaptiveSizePolicyOutputInterval=25 -XX:AdaptiveSizePolicyWeight=30 -XX:AdaptiveSizeThroughPutPolicy=1 -XX:GCTimeRatio=143 -XX:MaxGCPauseMillis=100 -XX:TenuredGenerationSizeIncrement=10 -XX:TenuredGenerationSizeSupplementDecay=1 -XX:YoungGenerationSizeIncrement=15 -XX:YoungGenerationSizeSupplement=60 -XX:YoungGenerationSizeSupplementDecay=2 -XX:AdaptiveSizeDecrementScaleFactor=4 -XX:+UseParallelGC -XX:-UseDynamicNumberOfGCThreads -XX:HeapMaximumCompactionInterval=20 -XX:HeapFirstMaximumCompactionCount=3 -XX:ParallelGCBufferWastePct=15 -XX:ParallelOldDeadWoodLimiterMean=25 -XX:ParallelOldDeadWoodLimiterStdDev=100
+  Time: 423
+Generation 6
+-XX:-UseAdaptiveSizePolicy -XX:SurvivorRatio=8 -XX:InitialSurvivorRatio=10 -XX:MinSurvivorRatio=3 -XX:SurvivorPadding=1 -XX:TargetSurvivorRatio=35 -XX:+UseZGC -XX:ZAllocationSpikeTolerance=1.5  -XX:ZCollectionInterval=350 -XX:ZFragmentationLimit=25.0 -XX:ZMarkStackSpaceLimit=2G -XX:-ZUncommit
+  Time: 427
+Generation 7
+-XX:+UseAdaptiveSizePolicy -XX:-UseAdaptiveSizeDecayMajorGCCost -XX:+UseAdaptiveSizePolicyWithSystemGC -XX:-UseAdaptiveGenerationSizePolicyAtMajorCollection -XX:AdaptiveSizePolicyCollectionCostMargin=35 -XX:AdaptiveSizePolicyInitializingSteps=30 -XX:AdaptiveSizePolicyWeight=0 -XX:AdaptiveSizeThroughPutPolicy=1 -XX:GCTimeRatio=55 -XX:TenuredGenerationSizeIncrement=30 -XX:TenuredGenerationSizeSupplement=50 -XX:TenuredGenerationSizeSupplementDecay=4 -XX:YoungGenerationSizeIncrement=20 -XX:YoungGenerationSizeSupplement=40 -XX:AdaptiveSizeDecrementScaleFactor=6 -XX:+UseParallelGC -XX:-UseDynamicNumberOfGCThreads -XX:-UseMaximumCompactionOnSystemGC -XX:HeapMaximumCompactionInterval=30 -XX:ParallelGCBufferWastePct=10 -XX:ParallelOldDeadWoodLimiterMean=65 -XX:ParallelOldDeadWoodLimiterStdDev=80
+  Time: 425
+Generation 8
+-XX:+UseAdaptiveSizePolicy -XX:-UseAdaptiveSizeDecayMajorGCCost -XX:+UseAdaptiveSizePolicyWithSystemGC -XX:-UseAdaptiveGenerationSizePolicyAtMajorCollection -XX:AdaptiveSizePolicyCollectionCostMargin=35 -XX:AdaptiveSizePolicyInitializingSteps=30 -XX:AdaptiveSizePolicyWeight=0 -XX:AdaptiveSizeThroughPutPolicy=1 -XX:GCTimeRatio=55 -XX:TenuredGenerationSizeIncrement=30 -XX:TenuredGenerationSizeSupplement=50 -XX:TenuredGenerationSizeSupplementDecay=4 -XX:YoungGenerationSizeIncrement=20 -XX:YoungGenerationSizeSupplement=40 -XX:AdaptiveSizeDecrementScaleFactor=6 -XX:+UseParallelGC -XX:-UseDynamicNumberOfGCThreads -XX:-UseMaximumCompactionOnSystemGC -XX:HeapMaximumCompactionInterval=30 -XX:ParallelGCBufferWastePct=10 -XX:ParallelOldDeadWoodLimiterMean=65 -XX:ParallelOldDeadWoodLimiterStdDev=80
+  Time: 417
+Generation 9
+-XX:+UseAdaptiveSizePolicy -XX:-UseAdaptiveSizeDecayMajorGCCost -XX:+UseAdaptiveSizePolicyWithSystemGC -XX:-UseAdaptiveGenerationSizePolicyAtMajorCollection -XX:AdaptiveSizePolicyCollectionCostMargin=35 -XX:AdaptiveSizePolicyInitializingSteps=20 -XX:AdaptiveSizePolicyWeight=0 -XX:AdaptiveSizeThroughPutPolicy=0 -XX:GCTimeRatio=55 -XX:TenuredGenerationSizeIncrement=10 -XX:TenuredGenerationSizeSupplement=50 -XX:TenuredGenerationSizeSupplementDecay=4 -XX:YoungGenerationSizeIncrement=20 -XX:YoungGenerationSizeSupplement=40 -XX:AdaptiveSizeDecrementScaleFactor=6 -XX:+UseParallelGC -XX:-UseDynamicNumberOfGCThreads -XX:-UseMaximumCompactionOnSystemGC -XX:HeapMaximumCompactionInterval=30 -XX:ParallelGCBufferWastePct=10 -XX:ParallelOldDeadWoodLimiterMean=65 -XX:ParallelOldDeadWoodLimiterStdDev=60 -XX:-PSChunkLargeArrays
+  Time: 416
+Generation 10
+-XX:+UseAdaptiveSizePolicy -XX:+UseAdaptiveSizeDecayMajorGCCost -XX:-UseAdaptiveSizePolicyFootprintGoal -XX:-UseAdaptiveGenerationSizePolicyAtMajorCollection -XX:AdaptiveSizeMajorGCDecayTimeScale=15 -XX:AdaptiveSizePolicyCollectionCostMargin=35 -XX:AdaptiveSizePolicyInitializingSteps=10 -XX:AdaptiveSizePolicyWeight=0 -XX:AdaptiveSizeThroughPutPolicy=1 -XX:GCTimeRatio=143 -XX:MaxGCPauseMillis=200 -XX:TenuredGenerationSizeIncrement=10 -XX:TenuredGenerationSizeSupplement=100 -XX:TenuredGenerationSizeSupplementDecay=4 -XX:YoungGenerationSizeSupplement=40 -XX:AdaptiveSizeDecrementScaleFactor=3 -XX:+UseZGC -XX:ZAllocationSpikeTolerance=3.0 -XX:ZCollectionInterval=0 -XX:ZFragmentationLimit=25.0 -XX:ZMarkStackSpaceLimit=4G -XX:+ZUncommit
+  Time: 421

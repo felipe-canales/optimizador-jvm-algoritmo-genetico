@@ -1,0 +1,519 @@
+{
+    "genes" :
+    [
+        {
+            "type" : "control",
+            "variants" : [
+                {
+                    "format" : "-XX:+UseAdaptiveSizePolicy",
+                    "deactivate": [21,22,23,24,25]
+                },
+                {
+                    "format" : "-XX:-UseAdaptiveSizePolicy",
+                    "deactivate": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+                }
+            ]
+        },
+        {
+            "type" : "control",
+            "variants" : [
+                {
+                    "format" : "-XX:-UseAdaptiveSizeDecayMajorGCCost",
+                    "deactivate": [6]
+                },
+                {
+                    "format" : "-XX:+UseAdaptiveSizeDecayMajorGCCost",
+                    "deactivate": []
+                }
+            ]
+        },
+        {
+            "type" : "bool",
+            "format" : "-XX:-UseAdaptiveSizePolicyFootprintGoal"
+        },
+        {
+            "type" : "bool",
+            "format" : "-XX:+UseAdaptiveSizePolicyWithSystemGC"
+		},
+		{
+            "type" : "bool",
+            "format" : "-XX:-UseAdaptiveGenerationSizePolicyAtMajorCollection"
+		},
+		{
+            "type" : "bool",
+            "format" : "-XX:-UseAdaptiveGenerationSizePolicyAtMinorCollection"
+        },
+        {
+            "type" : "int",
+            "format" : "-XX:AdaptiveSizeMajorGCDecayTimeScale={}",
+            "min" : 5,
+            "max" : 15,
+            "step" : ["linear", 5]
+        },
+        {
+            "type" : "int",
+            "format" : "-XX:AdaptiveSizePolicyCollectionCostMargin={}",
+            "min" : 25,
+            "max" : 75,
+            "step" : ["linear", 10]
+        },
+        {
+            "type" : "int",
+            "format" : "-XX:AdaptiveSizePolicyInitializingSteps={}",
+            "min" : 10,
+            "max" : 30,
+            "step" : ["linear", 5]
+        },
+        {
+            "type" : "int",
+            "format" : "-XX:AdaptiveSizePolicyOutputInterval={}",
+            "min" : 0,
+            "max" : 100,
+            "step" : ["linear", 25]
+        },
+        {
+            "type" : "int",
+            "format" : "-XX:AdaptiveSizePolicyWeight={}",
+            "min" : 0,
+            "max" : 50,
+            "step" : ["linear", 10]
+        },
+        {
+            "type" : "int",
+            "format" : "-XX:AdaptiveSizeThroughPutPolicy={}",
+            "min" : 0,
+            "max" : 1,
+            "step" : ["linear", 1]
+		},
+		{
+            "type" : "double",
+            "format" : "-XX:GCTimeRatio={}",
+            "min" : 55,
+            "max" : 143,
+            "step" : ["linear", 22]
+		},
+		{
+            "type" : "int",
+            "format" : "-XX:MaxGCPauseMillis={}",
+            "min" : 50,
+            "max" : 400,
+            "step" : ["linear", 50]
+        },
+        {
+            "type" : "int",
+            "format" : "-XX:TenuredGenerationSizeIncrement={}",
+            "min" : 10,
+            "max" : 30,
+            "step" : ["linear", 5]
+        },
+        {
+            "type" : "int",
+            "format" : "-XX:TenuredGenerationSizeSupplement={}",
+            "min" : 40,
+            "max" : 100,
+            "step" : ["linear", 10]
+        },
+        {
+            "type" : "int",
+            "format" : "-XX:TenuredGenerationSizeSupplementDecay={}",
+            "min" : 1,
+            "max" : 4,
+            "step" : ["linear", 1]
+        },
+        {
+            "type" : "int",
+            "format" : "-XX:YoungGenerationSizeIncrement={}",
+            "min" : 10,
+            "max" : 30,
+            "step" : ["linear", 5]
+        },
+        {
+            "type" : "int",
+            "format" : "-XX:YoungGenerationSizeSupplement={}",
+            "min" : 40,
+            "max" : 100,
+            "step" : ["linear", 10]
+        },
+        {
+            "type" : "int",
+            "format" : "-XX:YoungGenerationSizeSupplementDecay={}",
+            "min" : 1,
+            "max" : 4,
+            "step" : ["linear", 1]
+        },
+        {
+            "type" : "int",
+            "format" : "-XX:AdaptiveSizeDecrementScaleFactor={}",
+            "min" : 2,
+            "max" : 6,
+            "step" : ["linear", 1]
+        },
+        {
+            "type" : "int",
+            "format" : "-XX:SurvivorRatio={}",
+            "min" : 4,
+            "max" : 12,
+            "step" : ["linear", 2]
+        },
+        {
+            "type" : "int",
+            "format" : "-XX:InitialSurvivorRatio={}",
+            "min" : 4,
+            "max" : 12,
+            "step" : ["linear", 2]
+        },
+        {
+            "type" : "int",
+            "format" : "-XX:MinSurvivorRatio={}",
+            "min" : 3,
+            "max" : 6,
+            "step" : ["linear", 1]
+        },
+        {
+            "type" : "int",
+            "format" : "-XX:SurvivorPadding={}",
+            "min" : 1,
+            "max" : 5,
+            "step" : ["linear", 1]
+        },
+        {
+            "type" : "int",
+            "format" : "-XX:TargetSurvivorRatio={}",
+            "min" : 25,
+            "max" : 75,
+            "step" : ["linear", 10]
+        },
+		{
+            "type" : "control",
+            "variants" : [
+                {
+                    "format" : "-XX:+UseSerialGC",
+                    "deactivate": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70]
+                },
+                {
+                    "format" : "-XX:+UseParallelGC",
+                    "deactivate": [35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70]
+                },
+				{
+                    "format" : "-XX:+UseG1GC",
+                    "deactivate": [27,28,29,30,31,32,33,34,63,64,65,66,67,68,69,70]
+                },
+				{
+                    "format" : "-XX:+UseZGC",
+                    "deactivate": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62]
+                }
+            ]
+        },
+		{
+			"type": "bool",
+			"format": "-XX:-UseDynamicNumberOfGCThreads"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-UseMaximumCompactionOnSystemGC"
+		},
+		{
+			"type": "int",
+			"format": "-XX:HeapMaximumCompactionInterval={}",
+			"min" : 10,
+			"max" : 30,
+			"step": ["linear", 5]
+		},
+		{
+			"type": "int",
+			"format": "-XX:HeapFirstMaximumCompactionCount={}",
+			"min" : 1,
+			"max" : 5,
+			"step": ["linear", 1]
+		},
+		{
+			"type": "int",
+			"format": "-XX:ParallelGCBufferWastePct={}",
+			"min" : 5,
+			"max" : 15,
+			"step": ["linear", 5]
+		},
+		{
+			"type": "int",
+			"format": "-XX:ParallelOldDeadWoodLimiterMean={}",
+			"min" : 25,
+			"max" : 75,
+			"step": ["linear", 10]
+		},
+		{
+			"type": "int",
+			"format": "-XX:ParallelOldDeadWoodLimiterStdDev={}",
+			"min" : 40,
+			"max" : 100,
+			"step": ["linear", 20]
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-PSChunkLargeArrays"
+		},
+		{
+			"type": "control",
+			"variants" : [
+                {
+                    "format" : "-XX:+G1UseAdaptiveConcRefinement",
+                    "deactivate": [36,37,38,39,40,41]
+                },
+                {
+                    "format" : "-XX:-G1UseAdaptiveConcRefinement",
+                    "deactivate": []
+                }
+            ]
+		},
+		{
+			"type": "int",
+			"format": "-XX:G1ConcRefinementGreenZone={}",
+			"min" : 2,
+			"max" : 8,
+			"step": ["power", 2]
+		},
+		{
+			"type": "int",
+			"format": "-XX:G1ConcRefinementYellowZone={}",
+			"min" : 8,
+			"max" : 32,
+			"step": ["power", 2]
+		},
+		{
+			"type": "int",
+			"format": "-XX:G1ConcRefinementRedZone={}",
+			"min" : 32,
+			"max" : 128,
+			"step": ["linear", 5]
+		},
+		{
+			"type": "int",
+			"format": "-XX:G1ConcRefinementServiceIntervalMillis={}",
+			"min" : 150,
+			"max" : 450,
+			"step": ["linear", 50]
+		},
+		{
+			"type": "int",
+			"format": "-XX:G1ConcRefinementThreads={}",
+			"min" : 2,
+			"max" : 20,
+			"step": ["linear", 2]
+		},
+		{
+			"type": "int",
+			"format": "-XX:G1ConcRefinementThresholdStep={}",
+			"min" : 1,
+			"max" : 6,
+			"step": ["linear", 1]
+		},
+		{
+			"type": "control",
+			"variants" : [
+                {
+                    "format" : "-XX:G1PeriodicGCInterval=0",
+                    "deactivate": [43,44,45]
+                },
+                {
+                    "format" : "",
+                    "deactivate": []
+                }
+            ]
+		},
+		{
+			"type": "int",
+			"format": "-XX:G1PeriodicGCInterval={}",
+			"min" : 50,
+			"max" : 400,
+			"step": ["linear", 50]
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-G1PeriodicGCInvokesConcurrent"
+		},
+		{
+			"type": "double",
+			"format": "-XX:G1PeriodicGCSystemLoadThreshold={}",
+			"min" : 0.0,
+			"max" : 100.0,
+			"step": ["linear", 20.0]
+		},
+		{
+			"type": "int",
+			"format": "-XX:G1ConcMarkStepDurationMillis={}",
+			"min" : 5,
+			"max" : 15,
+			"step": ["linear", 5]
+		},
+		{
+			"type": "int",
+			"format": "-XX:G1ConcRSHotCardLimit={}",
+			"min" : 2,
+			"max" : 6,
+			"step": ["linear", 2]
+		},
+		{
+			"type": "int",
+			"format": "-XX:G1ConcRSLogCacheSize={}",
+			"min" : 5,
+			"max" : 15,
+			"step": ["linear", 5]
+		},
+		{
+			"type": "int",
+			"format": "-XX:G1ConfidencePercent={}",
+			"min" : 25,
+			"max" : 75,
+			"step": ["linear", 10]
+		},
+		{
+			"type": "int",
+			"format": "-XX:G1HeapRegionSize={}K",
+			"min" : 512,
+			"max" : 8192,
+			"step": ["power", 2]
+		},
+		{
+			"type": "int",
+			"format": "-XX:G1HeapWastePercent={}",
+			"min" : 1,
+			"max" : 9,
+			"step": ["linear", 2]
+		},
+		{
+			"type": "int",
+			"format": "-XX:G1MixedGCCountTarget={}",
+			"min" : 4,
+			"max" : 12,
+			"step": ["linear", 4]
+		},
+		{
+			"type": "int",
+			"format": "-XX:G1RSetRegionEntries={}",
+			"min" : 128,
+			"max" : 2048,
+			"step": ["power", 2]
+		},
+		{
+			"type": "int",
+			"format": "-XX:G1RSetSparseRegionEntries={}",
+			"min" : 4,
+			"max" : 64,
+			"step": ["power", 2]
+		},
+		{
+			"type": "int",
+			"format": "-XX:G1RSetUpdatingPauseTimePercent={}",
+			"min" : 5,
+			"max" : 15,
+			"step": ["linear", 5]
+		},
+		{
+			"type": "int",
+			"format": "-XX:G1RefProcDrainInterval={}",
+			"min" : 250,
+			"max" : 4000,
+			"step": ["power", 2]
+		},
+		{
+			"type": "int",
+			"format": "-XX:G1ReservePercent={}",
+			"min" : 5,
+			"max" : 15,
+			"step": ["linear", 5]
+		},
+		{
+			"type": "int",
+			"format": "-XX:G1SATBBufferEnqueueingThresholdPercent={}",
+			"min" : 30,
+			"max" : 90,
+			"step": ["linear", 15]
+		},                    
+		{
+			"type": "int",
+			"format": "-XX:G1SATBBufferSize={}",
+			"min" : 256,
+			"max" : 4096,
+			"step": ["power", 2]
+		},
+		{
+			"type": "int",
+			"format": "-XX:G1UpdateBufferSize={}",
+			"min" : 64,
+			"max" : 1024,
+			"step": ["power", 2]
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-G1UseAdaptiveIHOP"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:+ExplicitGCInvokesConcurrent"
+		},
+		{
+			"type": "double",
+			"format": "-XX:ZAllocationSpikeTolerance={}",
+			"min" : 0.5,
+			"max" : 3.5,
+			"step": ["linear", 0.5]
+		},
+		{
+			"type": "control",
+			"variants" : [
+                {
+                    "format" : "-XX:ZCollectionInterval=0",
+                    "deactivate": [65]
+                },
+                {
+                    "format" : "",
+                    "deactivate": []
+                }
+            ]
+		},
+		{
+			"type": "int",
+			"format": "-XX:ZCollectionInterval={}",
+			"min" : 50,
+			"max" : 400,
+			"step": ["linear", 50]
+		},
+		{
+			"type": "double",
+			"format": "-XX:ZFragmentationLimit={}",
+			"min" : 10.0,
+			"max" : 40.0,
+			"step": ["linear", 5.0]
+		},
+		{
+			"type": "int",
+			"format": "-XX:ZMarkStackSpaceLimit={}G",
+			"min" : 2,
+			"max" : 32,
+			"step": ["power", 2]
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-ZProactive"
+		},
+		{
+			"type": "control",
+			"variants" : [
+                {
+                    "format" : "-XX:+ZUncommit",
+                    "deactivate": []
+                },
+                {
+                    "format" : "-XX:-ZUncommit",
+                    "deactivate": [70]
+                }
+            ]
+		},
+		{
+			"type": "int",
+			"format": "-XX:ZUncommitDelay={}",
+			"min" : 100,
+			"max" : 600,
+			"step": ["linear", 50]
+		}	
+    ]
+}
