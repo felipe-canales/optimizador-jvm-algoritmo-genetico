@@ -1,5 +1,10 @@
 import json, random
 
+
+MAX_FITNESS = 999999
+MUTATION_CHANCE = 0.1
+
+
 with open("genes.json") as gene_file:
     gene_template = json.load(gene_file)
 
@@ -49,34 +54,59 @@ def crossover(sbj1, sbj2):
             new_sbj.append(sbj2[i])
         else:
             new_sbj.append(sbj1[i])
+    # mutation
+    if random.random() < MUTATION_CHANCE:
+        mutation = random.randint(0, len(new_sbj)-1)
+        alt_genes = new_subject()
+        new_sbj[mutation] = alt_genes[mutation]
     return new_sbj
 
 
 def new_generation(target):
-    return [[new_subject(), 999999] for i in range(target)] #genes, time
+    return [[new_subject(), MAX_FITNESS] for i in range(target)] #genes, time
+
+
+def tournament_select(pop, k):
+    candidates = random.choices(pop, k=k)
+    best = [None, MAX_FITNESS]
+    for i in range(k):
+        c = candidates[i]
+        if c[1] <= best[1]:
+            best = c
+    return pop.index(best)
 
 
 def next_generation(subjects, target):
-    random.shuffle(subjects)
-    for i in range(0, len(subjects)-1, 2):
+    new_gen = []
+    # selecting survivors
+    for i in range(target//2):
+        new_gen.append(subjects.pop(tournament_select(subjects, 5)))
+    # reproducing survivors
+    for i in range(0, (target//2) - 1, 2):
         j = i+1
-        subjects.append([crossover(subjects[i][0], subjects[j][0]), 999999])
-        subjects.append([crossover(subjects[i][0], subjects[j][0]), 999999])
+        subjects.append([crossover(subjects[i][0], subjects[j][0]), MAX_FITNESS])
+        subjects.append([crossover(subjects[i][0], subjects[j][0]), MAX_FITNESS])
+    # remaining few
     while len(subjects) < target:
-        i,j = random.choices(range(len(subjects)), k=2)
-        subjects.append([crossover(subjects[i][0], subjects[j][0]), 999999])
+        i,j = random.choices(range(len(target//2)), k=2)
+        subjects.append([crossover(subjects[i][0], subjects[j][0]), MAX_FITNESS])
     return subjects
 
 
 def get_active_genes(subject):
     active = []
     deactivated = []
+    # get deactivated genes
+    for i in range(len(subject)):
+        g = gene_template["genes"][i]
+        if g["type"] == "control":
+            deactivated.extend(g["variants"][subject[i]]["deactivate"])
+    # get flags
     for i in range(len(subject)):
         if i in deactivated or subject[i] == None:
             continue
-        g = gene_template["genes"][i] 
+        g = gene_template["genes"][i]
         if g["type"] == "control":
-            deactivated.extend(g["variants"][subject[i]]["deactivate"])
             active.append(g["variants"][subject[i]]["format"])
         elif g["type"] == "bool":
             if subject[i]:

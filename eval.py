@@ -54,7 +54,7 @@ def main():
         print("Generation", it+1)
         print("{}\n  Time: {}".format(' '.join(ga.get_active_genes(population[0][0])), population[0][1]))
 
-        population = ga.next_generation(population[:args.pop//2], args.pop)
+        population = ga.next_generation(population, args.pop)
 
 if __name__ == '__main__':
     main()
