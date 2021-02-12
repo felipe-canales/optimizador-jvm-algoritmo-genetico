@@ -70,14 +70,15 @@
             "min" : 0,
             "max" : 100,
             "step" : ["linear", 25]
-        },
+		},
+		
         {
             "type" : "int",
             "format" : "-XX:AdaptiveSizePolicyWeight={}",
             "min" : 0,
             "max" : 50,
             "step" : ["linear", 10]
-        },
+		},
         {
             "type" : "int",
             "format" : "-XX:AdaptiveSizeThroughPutPolicy={}",
@@ -140,7 +141,8 @@
             "min" : 1,
             "max" : 4,
             "step" : ["linear", 1]
-        },
+		},
+		
         {
             "type" : "int",
             "format" : "-XX:AdaptiveSizeDecrementScaleFactor={}",
@@ -188,19 +190,19 @@
             "variants" : [
                 {
                     "format" : "-XX:+UseSerialGC",
-                    "deactivate": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69]
+                    "deactivate": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70]
                 },
                 {
                     "format" : "-XX:+UseParallelGC",
-                    "deactivate": [34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69]
+                    "deactivate": [34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70]
                 },
 				{
                     "format" : "-XX:+UseG1GC",
-                    "deactivate": [27,28,29,30,31,32,33,62,63,64,65,66,67,68,69]
+                    "deactivate": [27,28,29,30,31,32,33,63,64,65,66,67,68,69,70]
                 },
 				{
                     "format" : "-XX:+UseZGC",
-                    "deactivate": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61]
+                    "deactivate": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62]
                 }
             ]
         },
@@ -222,6 +224,7 @@
 			"max" : 5,
 			"step": ["linear", 1]
 		},
+
 		{
 			"type": "int",
 			"format": "-XX:ParallelGCBufferWastePct={}",
@@ -252,7 +255,7 @@
 			"variants" : [
                 {
                     "format" : "-XX:+G1UseAdaptiveConcRefinement",
-                    "deactivate": [36,37,38,39,40,41]
+                    "deactivate": [35,36,37,38,39,40]
                 },
                 {
                     "format" : "-XX:-G1UseAdaptiveConcRefinement",
@@ -295,6 +298,7 @@
 			"max" : 20,
 			"step": ["linear", 2]
 		},
+
 		{
 			"type": "int",
 			"format": "-XX:G1ConcRefinementThresholdStep={}",
@@ -307,7 +311,7 @@
 			"variants" : [
                 {
                     "format" : "-XX:G1PeriodicGCInterval=0",
-                    "deactivate": [43,44,45]
+                    "deactivate": [42,43,44]
                 },
                 {
                     "format" : "",
@@ -368,6 +372,7 @@
 			"max" : 8192,
 			"step": ["power", 2]
 		},
+
 		{
 			"type": "int",
 			"format": "-XX:G1HeapWastePercent={}",
@@ -438,6 +443,14 @@
 			"max" : 1024,
 			"step": ["power", 2]
 		},
+
+		{
+			"type": "int",
+			"format": "-XX:InitiatingHeapOccupancyPercent={}",
+			"min" : 15,
+			"max" : 75,
+			"step": ["linear", 10]
+		},
 		{
 			"type": "bool",
 			"format": "-XX:-G1UseAdaptiveIHOP"
@@ -504,12 +517,114 @@
                 }
             ]
 		},
+
 		{
 			"type": "int",
 			"format": "-XX:ZUncommitDelay={}",
 			"min" : 100,
 			"max" : 600,
 			"step": ["linear", 50]
-		}	
+		},
+		{
+			"type": "int",
+			"format": "-XX:MinTLABSize={}",
+			"min" : 512,
+			"max" : 8192,
+			"step": ["power", 2]
+		},
+		{
+			"type": "int",
+			"format": "-XX:TLABAllocationWeight={}",
+			"min" : 15,
+			"max" : 55,
+			"step": ["linear", 10]
+		},
+		{
+			"type": "int",
+			"format": "-XX:TLABRefillWasteFraction={}",
+			"min" : 16,
+			"max" : 256,
+			"step": ["power", 2]
+		},
+		{
+			"type": "int",
+			"format": "-XX:TLABWasteIncrement={}",
+			"min" : 1,
+			"max" : 7,
+			"step": ["linear", 1]
+		},
+		{
+			"type": "int",
+			"format": "-XX:TLABWasteTargetPercent={}",
+			"min" : 0,
+			"max" : 5,
+			"step": ["linear", 1]
+		},
+		{
+			"type": "bool",
+			"format": "-XX:+ZeroTLAB"
+		},
+		{
+			"type": "control",
+			"variants" : [
+                {
+                    "format" : "",
+                    "deactivate": []
+                },
+                {
+                    "format" : "-XX:TLABSize=0",
+                    "deactivate": [78]
+                }
+            ]
+		},
+		{
+			"type": "int",
+			"format": "-XX:TLABSize={}K",
+			"min" : 16,
+			"max" : 1024,
+			"step": ["power", 2]
+		},
+		{
+			"type": "int",
+			"format": "-XX:YoungPLABSize={}",
+			"min" : 1024,
+			"max" : 16384,
+			"step": ["power", 2]
+		},
+		
+		{
+			"type": "int",
+			"format": "-XX:OldPLABSize={}",
+			"min" : 256,
+			"max" : 4096,
+			"step": ["power", 2]
+		},
+		{
+			"type": "control",
+			"variants" : [
+                {
+                    "format" : "-XX:+ResizePLAB",
+                    "deactivate": []
+                },
+                {
+                    "format" : "-XX:-ResizePLAB",
+                    "deactivate": [82,83]
+                }
+            ]
+		},
+		{
+			"type": "int",
+			"format": "-XX:PLABWeight={}",
+			"min" : 55,
+			"max" : 95,
+			"step": ["linear", 10]
+		},
+		{
+			"type": "int",
+			"format": "-XX:TargetPLABWastePct={}",
+			"min" : 4,
+			"max" : 16,
+			"step": ["linear", 3]
+		}		
     ]
 }
