@@ -68,8 +68,8 @@ def new_generation(target):
 
 def tournament_select(pop, k):
     candidates = random.choices(pop, k=k)
-    best = [None, MAX_FITNESS]
-    for i in range(k):
+    best = candidates[0]
+    for i in range(1,k):
         c = candidates[i]
         if c[1] <= best[1]:
             best = c
@@ -84,13 +84,14 @@ def next_generation(subjects, target):
     # reproducing survivors
     for i in range(0, (target//2) - 1, 2):
         j = i+1
-        subjects.append([crossover(subjects[i][0], subjects[j][0]), MAX_FITNESS])
-        subjects.append([crossover(subjects[i][0], subjects[j][0]), MAX_FITNESS])
+        new_gen.append([crossover(subjects[i][0], subjects[j][0]), MAX_FITNESS])
+        new_gen.append([crossover(subjects[i][0], subjects[j][0]), MAX_FITNESS])
     # remaining few
-    while len(subjects) < target:
-        i,j = random.choices(range(len(target//2)), k=2)
-        subjects.append([crossover(subjects[i][0], subjects[j][0]), MAX_FITNESS])
-    return subjects
+    while len(new_gen) < target:
+        print("remaining?")
+        i,j = random.choices(range(target//2), k=2)
+        new_gen.append([crossover(subjects[i][0], subjects[j][0]), MAX_FITNESS])
+    return new_gen
 
 
 def get_active_genes(subject):
@@ -118,10 +119,35 @@ def get_active_genes(subject):
 
 
 if __name__ == '__main__':
-    set_seed(48)
+    set_seed(913)
     a = new_subject()
     b = new_subject()
+    c = crossover(a, b)
     print("Subj 1", a)
     print("Subj 2", b)
-    print("Child", crossover(a, b))
+    print("Child", c)
+    
     print("Subj 1 flags", get_active_genes(a))
+
+    def detect_mutation(a,b,c):
+        for i in range(len(c)):
+            if c[i] != a[i] and c[i] != b[i]:
+                return True
+        return False
+    
+    print("Mutations")
+    pop_size = 40
+    pop = [[crossover(a,b), k + 1] for k in range(pop_size)]
+    mutated = 0
+    for s, _ in pop:
+        if detect_mutation(a,b,s):
+            mutated += 1
+    print(mutated, "out of", pop_size, "mutated")
+    
+    pop = next_generation(pop, 40)
+    print("Selected")
+    for i in range(20):
+        print(pop[i][1], end=" ")
+
+
+    
