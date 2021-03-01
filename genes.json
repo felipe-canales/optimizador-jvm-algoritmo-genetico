@@ -528,7 +528,7 @@
 		{
 			"type": "int",
 			"format": "-XX:MinTLABSize={}",
-			"min" : 512,
+			"min" : 1024,
 			"max" : 8192,
 			"step": ["power", 2]
 		},
@@ -556,8 +556,8 @@
 		{
 			"type": "int",
 			"format": "-XX:TLABWasteTargetPercent={}",
-			"min" : 0,
-			"max" : 5,
+			"min" : 1,
+			"max" : 6,
 			"step": ["linear", 1]
 		},
 		{
@@ -572,7 +572,7 @@
                     "deactivate": []
                 },
                 {
-                    "format" : "-XX:TLABSize=0",
+                    "format" : "",
                     "deactivate": [78]
                 }
             ]
@@ -580,7 +580,7 @@
 		{
 			"type": "int",
 			"format": "-XX:TLABSize={}K",
-			"min" : 16,
+			"min" : 64,
 			"max" : 1024,
 			"step": ["power", 2]
 		},
@@ -595,9 +595,10 @@
 		{
 			"type": "int",
 			"format": "-XX:OldPLABSize={}",
-			"min" : 256,
+			"min" : 1024,
 			"max" : 4096,
-			"step": ["power", 2]
+			"step": ["power", 2],
+			"_comment": "index: 80"
 		},
 		{
 			"type": "control",
@@ -625,6 +626,455 @@
 			"min" : 4,
 			"max" : 16,
 			"step": ["linear", 3]
-		}		
+		},
+		{
+			"type": "int",
+			"format": "-XX:C1InlineStackLimit{}",
+			"min" : 2,
+			"max" : 18,
+			"step": ["linear", 2]
+		},
+		{
+			"type": "int",
+			"format": "-XX:C1MaxInlineLevel={}",
+			"min" : 1,
+			"max" : 17,
+			"step": ["linear", 2]
+		},
+		{
+			"type": "int",
+			"format": "-XX:C1MaxInlineSize={}",
+			"min" : 5,
+			"max" : 65,
+			"step": ["linear", 5]
+		},
+		{
+			"type": "int",
+			"format": "-XX:C1MaxRecursiveInlineLevel={}",
+			"min" : 0,
+			"max" : 10,
+			"step": ["linear", 1]
+		},
+		{
+			"type": "int",
+			"format": "-XX:C1MaxTrivialSize={}",
+			"min" : 0,
+			"max" : 12,
+			"step": ["linear", 2]
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-InlineSynchronizedMethods"
+		},
+		
+		{
+			"type": "bool",
+			"format": "-XX:-C1OptimizeVirtualCallProfiling"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-C1ProfileBranches"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-C1ProfileCalls"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-C1ProfileCheckcasts"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-C1ProfileInlinedCalls"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-C1ProfileVirtualCalls"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-UseLoopInvariantCodeMotion"
+		},
+		{
+			"type": "int",
+			"format": "-XX:ValueMapInitialSize={}",
+			"min" : 11,
+			"max" : 999,
+			"step": ["power", 3]
+		},
+		{
+			"type": "int",
+			"format": "-XX:ValueMapMaxLoopSize={}",
+			"min" : 2,
+			"max" : 64,
+			"step": ["power", 2]
+		},
+		{
+			"type": "control",
+			"variants" : [
+                {
+                    "format" : "",
+                    "deactivate": []
+                },
+                {
+                    "format" : "-XX:-DoEscapeAnalysis",
+                    "deactivate": [100,101,102,103]
+                }
+            ]
+		},
+
+		{
+			"type": "control",
+			"variants" : [
+                {
+                    "format" : "",
+                    "deactivate": []
+                },
+                {
+                    "format" : "-XX:-EliminateAllocations",
+                    "deactivate": [101]
+                }
+            ],
+			"_comment:" "index: 100"
+		},
+		{
+			"type": "int",
+			"format": "-XX:EliminateAllocationArraySizeLimit={}",
+			"min" : 16,
+			"max" : 256,
+			"step": ["power", 2]
+		},
+		{
+			"type": "int",
+			"format": "-XX:EscapeAnalysisTimeout={}",
+			"min" : 5,
+			"max" : 35,
+			"step": ["linear", 5]
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-OptimizePtrCompare"
+		},
+		{
+			"type": "control",
+			"variants" : [
+                {
+                    "format" : "",
+                    "deactivate": []
+                },
+                {
+                    "format" : "-XX:-UseJumpTables",
+                    "deactivate": [105,106]
+                }
+            ]
+		},
+		{
+			"type": "int",
+			"format": "-XX:=MaxJumpTableSize{}",
+			"min" : 500,
+			"max" : 12500,
+			"step": ["linear", 500]
+		},
+		{
+			"type": "int",
+			"format": "-XX:MaxJumpTableSparseness={}",
+			"min" : 1,
+			"max" : 15,
+			"step": ["linear", 2]
+		},
+		{
+			"type": "int",
+			"format": "-XX:ArrayCopyLoadStoreMaxElem={}",
+			"min" : 2,
+			"max" : 16,
+			"step": ["linear", 2]
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-IncrementalInline"
+		},
+		{
+			"type": "int",
+			"format": "-XX:LiveNodeCountInliningCutoff={}",
+			"min" : 20000,
+			"max" : 60000,
+			"step": ["linear", 5000]
+		},
+		
+		{
+			"type": "int",
+			"format": "-XX:MaxInlineLevel={}",
+			"min" : 5,
+			"max" : 25,
+			"step": ["linear", 5]
+		},
+		{
+			"type": "int",
+			"format": "-XX:MaxInlineSize={}",
+			"min" : 17,
+			"max" : 53,
+			"step": ["linear", 6]
+		},
+		{
+			"type": "int",
+			"format": "-XX:MaxRecursiveInlineLevel={}",
+			"min" : 0,
+			"max" : 3,
+			"step": ["linear", 1]
+		},
+		{
+			"type": "int",
+			"format": "-XX:MaxTrivialSize={}",
+			"min" : 3,
+			"max" : 9,
+			"step": ["linear", 1]
+		},
+		{
+			"type": "int",
+			"format": "-XX:MultiArrayExpandLimit={}",
+			"min" : 3,
+			"max" : 9,
+			"step": ["linear", 1]
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-UseBimorphicInlining"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-UseOnlyInlinedBimorphic"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-AllowVectorizeOnDemand"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-AlignVector"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-BlockLayoutByFrequency"
+		},
+		
+		{
+			"type": "int",
+			"format": "-XX:BlockLayoutMinDiamondPercentage={}",
+			"min" : 10,
+			"max" : 30,
+			"step": ["linear", 5]
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-BlockLayoutRotateLoops"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-EliminateLocks"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-EliminateNestedLocks"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-DoReserveCopyInSuperWord"
+		},
+		{
+			"type": "int",
+			"format": "-XX:LoopOptsCount={}",
+			"min" : 23,
+			"max" : 43,
+			"step": ["linear", 5]
+		},
+		{
+			"type": "int",
+			"format": "-XX:LoopStripMiningIter={}",
+			"min" : 0,
+			"max" : 10,
+			"step": ["linear", 2]
+		},
+		{
+			"type": "int",
+			"format": "-XX:LoopStripMiningIterShortLoop={}",
+			"min" : 0,
+			"max" : 10,
+			"step": ["linear", 2]
+		},
+		{
+			"type": "int",
+			"format": "-XX:LoopPercentProfileLimit={}",
+			"min" : 15,
+			"max" : 45,
+			"step": ["linear", 5]
+		},
+		{
+			"type": "int",
+			"format": "-XX:LoopUnrollMin={}",
+			"min" : 2,
+			"max" : 6,
+			"step": ["linear", 1]
+		},
+		{
+			"type": "int",
+			"format": "-XX:LoopMaxUnroll={}",
+			"min" : 8,
+			"max" : 24,
+			"step": ["linear", 4]
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-SuperWordReductions"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-UseSuperWord"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-LoopUnswitching"
+		},
+		{
+			"type": "int",
+			"format": "-XX:MaxLabelRootDepth={}",
+			"min" : 550,
+			"max" : 1650,
+			"step": ["linear", 275]
+		},
+		{
+			"type": "int",
+			"format": "-XX:MaxLoopPad={}",
+			"min" : 5,
+			"max" : 25,
+			"step": ["linear", 4]
+		},
+		{
+			"type": "int",
+			"format": "-XX:NumberOfLoopInstrToAlign={}",
+			"min" : 2,
+			"max" : 6,
+			"step": ["linear", 1]
+		},
+		{
+			"type": "int",
+			"format": "-XX:MaxNodeLimit={}",
+			"min" : 40000,
+			"max" : 120000,
+			"step": ["linear", 10000]
+		},
+		{
+			"type": "int",
+			"format": "-XX:MaxVectorSize={}",
+			"min" : 16,
+			"max" : 48,
+			"step": ["linear", 4]
+		},
+		{
+			"type": "int",
+			"format": "-XX:NodeLimitFudgeFactor={}",
+			"min" : 1000,
+			"max" : 3000,
+			"step": ["linear", 500]
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-OptimizeFill"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-OptimizeStringConcat"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-PartialPeelAtUnsignedTests"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-PartialPeelLoop"
+		},
+		{
+			"type": "int",
+			"format": "-XX:PartialPeelNewPhiDelta={}",
+			"min" : 0,
+			"max" : 2,
+			"step": ["linear", 1]
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-ReassociateInvariants"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-ReduceBulkZeroing"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-ReduceFieldZeroing"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-ReduceInitialCardMarks"
+		},
+		{
+			"type": "int",
+			"format": "-XX:TrackedInitializationLimit={}",
+			"min" : 26,
+			"max" : 74,
+			"step": ["linear", 12]
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-SplitIfBlocks"
+		},
+		{
+			"type": "int",
+			"format": "-XX:TypeProfileMajorReceiverPercent={}",
+			"min" : 60,
+			"max" : 100,
+			"step": ["linear", 10]
+		},
+		{
+			"type": "bool",
+			"format": "-XX:+UseCMoveUnconditionally"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:+UseCountedLoopSafepoints"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-UseDivMod"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:+UseFPUForSpilling"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-UseLoopPredicate"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-UseProfiledLoopPredicate"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-UseSubwordForMaxVector"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-UseTypeSpeculation"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-UseVectorCmov"
+		},
+		{
+			"type": "int",
+			"format": "-XX:ValueSearchLimit={}",
+			"min" : 500,
+			"max" : 1500,
+			"step": ["linear", 250]
+		}
     ]
 }
