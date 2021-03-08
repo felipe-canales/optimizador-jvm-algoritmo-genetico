@@ -581,7 +581,7 @@
 			"type": "int",
 			"format": "-XX:TLABSize={}K",
 			"min" : 64,
-			"max" : 1024,
+			"max" : 512,
 			"step": ["power", 2]
 		},
 		{
@@ -629,7 +629,7 @@
 		},
 		{
 			"type": "int",
-			"format": "-XX:C1InlineStackLimit{}",
+			"format": "-XX:C1InlineStackLimit={}",
 			"min" : 2,
 			"max" : 18,
 			"step": ["linear", 2]
@@ -735,7 +735,7 @@
                     "deactivate": [101]
                 }
             ],
-			"_comment:" "index: 100"
+			"_comment": "index: 100"
 		},
 		{
 			"type": "int",
@@ -770,10 +770,10 @@
 		},
 		{
 			"type": "int",
-			"format": "-XX:=MaxJumpTableSize{}",
+			"format": "-XX:MaxJumpTableSize={}",
 			"min" : 500,
 			"max" : 12500,
-			"step": ["linear", 500]
+			"step": ["linear", 1000]
 		},
 		{
 			"type": "int",
@@ -862,7 +862,8 @@
 			"format": "-XX:BlockLayoutMinDiamondPercentage={}",
 			"min" : 10,
 			"max" : 30,
-			"step": ["linear", 5]
+			"step": ["linear", 5],
+			"_comment": "index: 120"
 		},
 		{
 			"type": "bool",
@@ -888,18 +889,32 @@
 			"step": ["linear", 5]
 		},
 		{
+			"type": "control",
+			"variants" : [
+                {
+                    "format" : "-XX:+UseCountedLoopSafepoints",
+                    "deactivate": []
+                },
+                {
+                    "format" : "",
+                    "deactivate": [127,128]
+                }
+            ],
+			"_comment": "index: 100"
+		},
+		{
 			"type": "int",
 			"format": "-XX:LoopStripMiningIter={}",
-			"min" : 0,
-			"max" : 10,
-			"step": ["linear", 2]
+			"min" : 500,
+			"max" : 1500,
+			"step": ["linear", 250]
 		},
 		{
 			"type": "int",
 			"format": "-XX:LoopStripMiningIterShortLoop={}",
-			"min" : 0,
-			"max" : 10,
-			"step": ["linear", 2]
+			"min" : 50,
+			"max" : 150,
+			"step": ["linear", 25]
 		},
 		{
 			"type": "int",
@@ -908,6 +923,7 @@
 			"max" : 45,
 			"step": ["linear", 5]
 		},
+		
 		{
 			"type": "int",
 			"format": "-XX:LoopUnrollMin={}",
@@ -958,22 +974,23 @@
 		{
 			"type": "int",
 			"format": "-XX:MaxNodeLimit={}",
-			"min" : 40000,
-			"max" : 120000,
+			"min" : 60000,
+			"max" : 100000,
 			"step": ["linear", 10000]
 		},
 		{
 			"type": "int",
 			"format": "-XX:MaxVectorSize={}",
-			"min" : 16,
-			"max" : 48,
-			"step": ["linear", 4]
+			"min" : 8,
+			"max" : 128,
+			"step": ["power", 2]
 		},
+		
 		{
 			"type": "int",
 			"format": "-XX:NodeLimitFudgeFactor={}",
-			"min" : 1000,
-			"max" : 3000,
+			"min" : 2000,
+			"max" : 4000,
 			"step": ["linear", 500]
 		},
 		{
@@ -1015,6 +1032,7 @@
 			"type": "bool",
 			"format": "-XX:-ReduceInitialCardMarks"
 		},
+		
 		{
 			"type": "int",
 			"format": "-XX:TrackedInitializationLimit={}",
@@ -1036,10 +1054,6 @@
 		{
 			"type": "bool",
 			"format": "-XX:+UseCMoveUnconditionally"
-		},
-		{
-			"type": "bool",
-			"format": "-XX:+UseCountedLoopSafepoints"
 		},
 		{
 			"type": "bool",
@@ -1065,6 +1079,7 @@
 			"type": "bool",
 			"format": "-XX:-UseTypeSpeculation"
 		},
+		
 		{
 			"type": "bool",
 			"format": "-XX:-UseVectorCmov"
