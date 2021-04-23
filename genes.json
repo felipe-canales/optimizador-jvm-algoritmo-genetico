@@ -982,7 +982,7 @@
 			"type": "int",
 			"format": "-XX:MaxVectorSize={}",
 			"min" : 8,
-			"max" : 128,
+			"max" : 32,
 			"step": ["power", 2]
 		},
 		
