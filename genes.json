@@ -527,9 +527,9 @@
 		},
 		{
 			"type": "int",
-			"format": "-XX:MinTLABSize={}",
-			"min" : 1024,
-			"max" : 8192,
+			"format": "-XX:MinTLABSize={}K",
+			"min" : 2,
+			"max" : 8,
 			"step": ["power", 2]
 		},
 		{
@@ -586,17 +586,17 @@
 		},
 		{
 			"type": "int",
-			"format": "-XX:YoungPLABSize={}",
-			"min" : 1024,
-			"max" : 16384,
+			"format": "-XX:YoungPLABSize={}K",
+			"min" : 4,
+			"max" : 32,
 			"step": ["power", 2]
 		},
 		
 		{
 			"type": "int",
-			"format": "-XX:OldPLABSize={}",
-			"min" : 1024,
-			"max" : 4096,
+			"format": "-XX:OldPLABSize={}K",
+			"min" : 4,
+			"max" : 32,
 			"step": ["power", 2],
 			"_comment": "index: 80"
 		},
@@ -899,8 +899,7 @@
                     "format" : "",
                     "deactivate": [127,128]
                 }
-            ],
-			"_comment": "index: 100"
+            ]
 		},
 		{
 			"type": "int",
@@ -991,7 +990,8 @@
 			"format": "-XX:NodeLimitFudgeFactor={}",
 			"min" : 2000,
 			"max" : 4000,
-			"step": ["linear", 500]
+			"step": ["linear", 500],
+			"_comment": "index: 140"
 		},
 		{
 			"type": "bool",
@@ -1082,7 +1082,8 @@
 		
 		{
 			"type": "bool",
-			"format": "-XX:-UseVectorCmov"
+			"format": "-XX:-UseVectorCmov",
+			"_comment": "index: 160"
 		},
 		{
 			"type": "int",
@@ -1090,6 +1091,1050 @@
 			"min" : 500,
 			"max" : 1500,
 			"step": ["linear", 250]
+		},
+		{
+			"type": "control",
+			"variants" : [
+                {
+                    "format" : "-XX:AllocatePrefetchStyle=0",
+                    "deactivate": [163,164,165,166,167]
+                },
+				{
+                    "format" : "-XX:AllocatePrefetchStyle=1",
+                    "deactivate": []
+                },
+				{
+                    "format" : "-XX:AllocatePrefetchStyle=2",
+                    "deactivate": []
+                },
+                {
+                    "format" : "-XX:AllocatePrefetchStyle=3",
+                    "deactivate": []
+                }
+            ]
+		},
+		{
+			"type": "int",
+			"format": "-XX:AllocateInstancePrefetchLines={}",
+			"min" : 1,
+			"max" : 16,
+			"step": ["linear", 3]
+		},
+		{
+			"type": "int",
+			"format": "-XX:AllocatePrefetchDistance={}",
+			"min" : 16,
+			"max" : 512,
+			"step": ["power", 2]
+		},
+		{
+			"type": "int",
+			"format": "-XX:AllocatePrefetchInstr={}",
+			"min" : 0,
+			"max" : 3,
+			"step": ["linear", 1]
+		},
+		{
+			"type": "int",
+			"format": "-XX:AllocatePrefetchLines={}",
+			"min" : 1,
+			"max" : 16,
+			"step": ["linear", 3]
+		},
+		{
+			"type": "int",
+			"format": "-XX:AllocatePrefetchStepSize={}",
+			"min" : 8,
+			"max" : 64,
+			"step": ["power", 8]
+		},
+		{
+			"type": "bool",
+			"format": "-XX:+AllowParallelDefineClass"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:+AlwaysLockClassLoader"
+		},
+		
+		{
+			"type": "bool",
+			"format": "-XX:+AlwaysCompileLoopMethods"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:+AssertOnSuspendWaitFailure"
+		},
+		{
+			"type": "int",
+			"format": "-XX:MaxBCEAEstimateLevel={}",
+			"min" : 1,
+			"max" : 11,
+			"step": ["linear", 2]
+		},
+		{
+			"type": "int",
+			"format": "-XX:MaxBCEAEstimateSize={}",
+			"min" : 30,
+			"max" : 270,
+			"step": ["linear", 30]
+		},
+		{
+			"type": "bool",
+			"format": "-XX:+CalculateClassFingerprint"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:+CheckJNICalls"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-CriticalJNINatives"
+		},
+		{
+			"type": "int",
+			"format": "-XX:MaxJNILocalCapacity={}",
+			"min" : 32768,
+			"max" : 98304,
+			"step": ["linear", 16384]
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-UseFastJNIAccessors"
+		},
+		{
+			"type": "bool",
+			"format": "",
+			"_comment" : "REMOVE"
+		},
+		
+		{
+			"type": "bool",
+			"format": "-XX:-UseSignalChaining",
+			"_comment": "index: 180"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:+AlwaysRestoreFPU"
+		},
+		{
+			"type": "control",
+			"variants" : [
+                {
+                    "format" : "",
+                    "deactivate": []
+                },
+                {
+                    "format" : "-XX:-UseCompiler",
+                    "deactivate": [183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,220,221]
+                }
+            ]
+		},
+		{
+			"type": "control",
+			"variants" : [
+                {
+                    "format" : "-XX:CompilationMode=default",
+                    "deactivate": [185,189]
+                },
+				{
+                    "format" : "-XX:CompilationMode=quick-only",
+                    "deactivate": [186,188,190,191,192,193,194,195,196,197,198,199]
+                },
+                {
+                    "format" : "-XX:CompilationMode=high-only",
+                    "deactivate": [186,188,190,191,192,193,194,195,196,197,198,199]
+                },
+                {
+                    "format" : "-XX:CompilationMode=high-only-quick-internal",
+                    "deactivate": [185,188,190,191,192,193,194,195,196,197,198,199]
+                }
+            ]
+		},
+		{
+			"type": "control",
+			"variants" : [
+                {
+                    "format" : "-XX:+CICompilerCountPerCPU",
+                    "deactivate": [185,186]
+                },
+				{
+                    "format" : "-XX:-CICompilerCountPerCPU",
+                    "deactivate": []
+                }
+            ]
+		},
+		{
+			"type": "int",
+			"format": "-XX:CICompilerCount={}",
+			"min" : 1,
+			"max" : 12,
+			"step": ["linear", 1],
+			"_comment": "For quick-only/high-only"
+		},
+		{
+			"type": "int",
+			"format": "-XX:CICompilerCount={}",
+			"min" : 2,
+			"max" : 12,
+			"step": ["linear", 1],
+			"_comment": "For default/high-only"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-UseDynamicNumberOfCompilerThreads"
+		},
+		{
+			"type": "int",
+			"format": "-XX:IncreaseFirstTierCompileThresholdAt={}",
+			"min" : 20,
+			"max" : 80,
+			"step": ["linear", 5]
+		},
+		{
+			"type": "int",
+			"format": "-XX:InterpreterProfilePercentage={}",
+			"min" : 9,
+			"max" : 57,
+			"step": ["linear", 6]
+		},
+		
+		{
+			"type": "int",
+			"format": "-XX:Tier0BackedgeNotifyFreqLog={}",
+			"min" : 0,
+			"max" : 30,
+			"step": ["linear", 5]
+		},
+		{
+			"type": "int",
+			"format": "-XX:Tier0InvokeNotifyFreqLog={}",
+			"min" : 0,
+			"max" : 30,
+			"step": ["linear", 5]
+		},
+		{
+			"type": "int",
+			"format": "-XX:Tier0ProfilingStartPercentage={}",
+			"min" : 50,
+			"max" : 350,
+			"step": ["linear", 25]
+		},
+		{
+			"type": "int",
+			"format": "-XX:Tier23InlineeNotifyFreqLog={}",
+			"min" : 0,
+			"max" : 30,
+			"step": ["linear", 5]
+		},
+		{
+			"type": "int",
+			"format": "-XX:Tier2BackedgeNotifyFreqLog={}",
+			"min" : 0,
+			"max" : 30,
+			"step": ["linear", 5]
+		},
+		{
+			"type": "int",
+			"format": "-XX:Tier2BackEdgeThreshold={}",
+			"min" : 10,
+			"max" : 1000000,
+			"step": ["power", 10]
+		},
+		{
+			"type": "int",
+			"format": "-XX:Tier2CompileThreshold={}",
+			"min" : 10,
+			"max" : 1000000,
+			"step": ["power", 10]
+		},
+		{
+			"type": "int",
+			"format": "-XX:Tier2InvokeNotifyFreqLog={}",
+			"min" : 0,
+			"max" : 30,
+			"step": ["linear", 5]
+		},
+		{
+			"type": "int",
+			"format": "-XX:Tier3AOTBackEdgeThreshold={}",
+			"min" : 10,
+			"max" : 1000000,
+			"step": ["power", 10]
+		},
+		{
+			"type": "int",
+			"format": "-XX:Tier3AOTCompileThreshold={}",
+			"min" : 10,
+			"max" : 1000000,
+			"step": ["power", 10]
+		},
+		
+		{
+			"type": "int",
+			"format": "-XX:Tier3AOTInvocationThreshold={}",
+			"min" : 10,
+			"max" : 1000000,
+			"step": ["power", 10],
+			"_comment": "index: 200"
+		},
+		{
+			"type": "int",
+			"format": "-XX:Tier3AOTMinInvocationThreshold={}",
+			"min" : 10,
+			"max" : 1000000,
+			"step": ["power", 10]
+		},
+		{
+			"type": "int",
+			"format": "-XX:Tier3BackedgeNotifyFreqLog={}",
+			"min" : 0,
+			"max" : 30,
+			"step": ["linear", 5]
+		},
+		{
+			"type": "int",
+			"format": "-XX:Tier3BackEdgeThreshold={}",
+			"min" : 10,
+			"max" : 1000000,
+			"step": ["power", 10]
+		},
+		{
+			"type": "int",
+			"format": "-XX:Tier3CompileThreshold={}",
+			"min" : 10,
+			"max" : 1000000,
+			"step": ["power", 10]
+		},
+		{
+			"type": "int",
+			"format": "-XX:Tier3DelayOff={}",
+			"min" : 0,
+			"max" : 5,
+			"step": ["linear", 1]
+		},
+		{
+			"type": "int",
+			"format": "-XX:Tier3DelayOn={}",
+			"min" : 2,
+			"max" : 6,
+			"step": ["linear", 1]
+		},
+		{
+			"type": "int",
+			"format": "-XX:Tier3InvocationThreshold={}",
+			"min" : 10,
+			"max" : 1000000,
+			"step": ["power", 10]
+		},
+		{
+			"type": "int",
+			"format": "-XX:Tier3InvokeNotifyFreqLog={}",
+			"min" : 0,
+			"max" : 30,
+			"step": ["linear", 5]
+		},
+		{
+			"type": "int",
+			"format": "-XX:Tier3LoadFeedback={}",
+			"min" : 2,
+			"max" : 6,
+			"step": ["linear", 1]
+		},
+		
+		{
+			"type": "int",
+			"format": "-XX:Tier3MinInvocationThreshold={}",
+			"min" : 10,
+			"max" : 1000000,
+			"step": ["power", 10]
+		},
+		{
+			"type": "int",
+			"format": "-XX:Tier4BackEdgeThreshold={}",
+			"min" : 10,
+			"max" : 1000000,
+			"step": ["power", 10]
+		},
+		{
+			"type": "int",
+			"format": "-XX:Tier4CompileThreshold={}",
+			"min" : 10,
+			"max" : 1000000,
+			"step": ["power", 10]
+		},
+		{
+			"type": "int",
+			"format": "-XX:Tier4InvocationThreshold={}",
+			"min" : 10,
+			"max" : 1000000,
+			"step": ["power", 10]
+		},
+		{
+			"type": "int",
+			"format": "-XX:Tier4LoadFeedback={}",
+			"min" : 2,
+			"max" : 12,
+			"step": ["linear", 1]
+		},
+		{
+			"type": "int",
+			"format": "-XX:Tier4MinInvocationThreshold={}",
+			"min" : 10,
+			"max" : 1000000,
+			"step": ["power", 10]
+		},
+		{
+			"type": "int",
+			"format": "-XX:TieredCompileTaskTimeout={}",
+			"min" : 20,
+			"max" : 70,
+			"step": ["linear", 5]
+		},
+		{
+			"type": "int",
+			"format": "-XX:TieredRateUpdateMaxTime={}",
+			"min" : 20,
+			"max" : 30,
+			"step": ["linear", 2]
+		},
+		{
+			"type": "int",
+			"format": "-XX:TieredRateUpdateMinTime={}",
+			"min" : 0,
+			"max" : 10,
+			"step": ["linear", 2]
+		},
+		{
+			"type": "int",
+			"format": "-XX:TieredStopAtLevel={}",
+			"min" : 1,
+			"max" : 4,
+			"step": ["linear", 1]
+		},
+		
+		{
+			"type": "bool",
+			"format": "-XX:-UseInterpreter",
+			"_comment": "index: 220"
+		},
+		{
+			"type": "double",
+			"format": "-XX:CompileThresholdScaling={}",
+			"min" : 0.5,
+			"max" : 16.0,
+			"step": ["power", 2]
+		},
+		{
+			"type": "control",
+			"variants" : [
+                {
+                    "format" : "",
+                    "deactivate": []
+                },
+				{
+                    "format" : "-XX:-ClassUnloading",
+                    "deactivate": [223]
+                }
+            ]
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-ClassUnloadingWithConcurrentMark"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-ClipInlining"
+		},
+		{
+			"type": "int",
+			"format": "-XX:CompressedClassSpaceSize={}M",
+			"min" : 128,
+			"max" : 2048,
+			"step": ["power", 2]
+		},
+		{
+			"type": "control",
+			"variants" : [
+                {
+                    "format" : "",
+                    "deactivate": []
+                },
+				{
+                    "format" : "-XX:-EnableContended",
+                    "deactivate": [227,228]
+                }
+            ]
+		},
+		{
+			"type": "int",
+			"format": "-XX:ContendedPaddingWidth={}",
+			"min" : 32,
+			"max" : 1024,
+			"step": ["power", 2]
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-RestrictContended"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:+DisableAttachMechanism"
+		},
+		
+		{
+			"type": "bool",
+			"format": "-XX:+EagerXrunInit"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-EnableDynamicAgentLoading"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-DontCompileHugeMethods"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-EstimateArgEscape"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-FilterSpuriousWakeups"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:+ForceTimeHighResolution"
+		},
+		{
+			"type": "int",
+			"format": "-XX:HeapSearchSteps={}",
+			"min" : 1,
+			"max" : 9,
+			"step": ["linear", 2]
+		},
+		{
+			"type": "bool",
+			"format": "-XX:+IgnoreEmptyClassPaths"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-Inline"
+		},
+		{
+			"type": "int",
+			"format": "-XX:HeapSearchSteps={}",
+			"min" : 1,
+			"max" : 9,
+			"step": ["linear", 2]
+		},
+		
+		{
+			"type": "int",
+			"format": "-XX:LargePageHeapSizeThreshold={}M",
+			"min" : 8,
+			"max" : 2048,
+			"step": ["power", 2],
+			"_comment": "index: 240"
+		},
+		{
+			"type": "int",
+			"format": "-XX:MaxDirectMemorySize={}K",
+			"min" : 1,
+			"max" : 1048576,
+			"step": ["power", 32]
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-MaxFDLimit"
+		},
+		{
+			"type": "int",
+			"format": "-XX:MaxMetaspaceExpansion={}K",
+			"min" : 1024,
+			"max" : 16384,
+			"step": ["power", 2]
+		},
+		{
+			"type": "int",
+			"format": "-XX:MaxMetaspaceFreeRatio={}",
+			"min" : 55,
+			"max" : 85,
+			"step": ["linear", 5]
+		},
+		{
+			"type": "int",
+			"format": "-XX:MaxMetaspaceSize={}G",
+			"min" : 1,
+			"max" : 1073741824,
+			"step": ["power", 1024]
+		},
+		{
+			"type": "int",
+			"format": "-XX:MinMetaspaceExpansion={}K",
+			"min" : 64,
+			"max" : 1024,
+			"step": ["power", 2]
+		},
+		{
+			"type": "int",
+			"format": "-XX:MinMetaspaceFreeRatio={}",
+			"min" : 25,
+			"max" : 55,
+			"step": ["linear", 5]
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-MethodFlushing"
+		},
+		{
+			"type": "int",
+			"format": "-XX:MinHeapDeltaBytes={}K",
+			"min" : 16,
+			"max" : 1024,
+			"step": ["power", 2]
+		},
+		
+		{
+			"type": "int",
+			"format": "-XX:MinInliningThreshold={}",
+			"min" : 50,
+			"max" : 500,
+			"step": ["linear", 25]
+		},
+		{
+			"type": "int",
+			"format": "-XX:MinInliningThreshold={}",
+			"min" : 50,
+			"max" : 500,
+			"step": ["linear", 25]
+		},
+		{
+			"type": "int",
+			"format": "-XX:NmethodSweepActivity={}",
+			"min" : 1,
+			"max" : 1000,
+			"step": ["power", 10]
+		},
+		{
+			"type": "control",
+			"variants" : [
+                {
+                    "format" : "-XX:+UseNUMA",
+                    "deactivate": []
+                },
+				{
+                    "format" : "",
+                    "deactivate": [254,255,256,257,258,259]
+                }
+            ]
+		},
+		{
+			"type": "control",
+			"variants" : [
+                {
+                    "format" : "-XX:+UseNUMAInterleaving",
+                    "deactivate": []
+                },
+				{
+                    "format" : "",
+                    "deactivate": [255]
+                }
+            ]
+		},
+		{
+			"type": "int",
+			"format": "-XX:NUMAInterleaveGranularity={}K",
+			"min" : 256,
+			"max" : 16384,
+			"step": ["power", 2]
+		},
+		{
+			"type": "control",
+			"variants" : [
+                {
+                    "format" : "-XX:-UseAdaptiveNUMAChunkSizing",
+                    "deactivate": [257]
+                },
+				{
+                    "format" : "",
+                    "deactivate": []
+                }
+            ]
+		},
+		{
+			"type": "int",
+			"format": "-XX:NUMAChunkResizeWeight={}",
+			"min" : 0,
+			"max" : 40,
+			"step": ["linear", 5]
+		},
+		{
+			"type": "int",
+			"format": "-XX:NUMAPageScanRate={}",
+			"min" : 32,
+			"max" : 2048,
+			"step": ["power", 2]
+		},
+		{
+			"type": "int",
+			"format": "-XX:NUMASpaceResizeRate={}M",
+			"min" :	128,
+			"max" : 8192,
+			"step": ["power", 2]
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-OmitStackTraceInFastThrow"
+		},
+		
+		{
+			"type": "int",
+			"format": "-XX:PerBytecodeRecompilationCutoff={}",
+			"min" : 0,
+			"max" : 400,
+			"step": ["linear", 25],
+			"_comment": "index: 260"
+		},
+		{
+			"type": "int",
+			"format": "-XX:PerBytecodeTrapLimit={}",
+			"min" : 0,
+			"max" : 8,
+			"step": ["linear", 1]
+		},
+		{
+			"type": "bool",
+			"format": "-XX:+PerfAllowAtExitRegistration"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:+PerfBypassFileSystemCheck"
+		},
+		{
+			"type": "control",
+			"variants" : [
+                {
+                    "format" : "-XX:-UsePerfData",
+                    "deactivate": [265,266,267,268]
+                },
+				{
+                    "format" : "",
+                    "deactivate": []
+                }
+            ]
+		},
+		{
+			"type": "int",
+			"format": "-XX:PerfDataMemorySize={}K",
+			"min" : 2,
+			"max" : 512,
+			"step": ["power", 2]
+		},
+		{
+			"type": "int",
+			"format": "-XX:PerfDataSamplingInterval={}",
+			"min" : 10,
+			"max" : 90,
+			"step": ["linear", 10]
+		},
+		{
+			"type": "bool",
+			"format": "-XX:+PerfDisableSharedMem"
+		},
+		{
+			"type": "int",
+			"format": "-XX:PerfMaxStringConstLength={}",
+			"min" : 128,
+			"max" : 8192,
+			"step": ["power", 2]
+		},
+		{
+			"type": "int",
+			"format": "-XX:PerMethodRecompilationCutoff={}",
+			"min" : 50,
+			"max" : 750,
+			"step": ["linear", 50]
+		},
+		
+		{
+			"type": "int",
+			"format": "-XX:PerMethodTrapLimit={}",
+			"min" : 20,
+			"max" : 180,
+			"step": ["linear", 20]
+		},
+		{
+			"type": "bool",
+			"format": "-XX:+PreserveAllAnnotations"
+		},
+		{
+			"type": "int",
+			"format": "-XX:ProcessDistributionStride={}",
+			"min" : 0,
+			"max" : 8,
+			"step": ["linear", 1]
+		},
+		{
+			"type": "int",
+			"format": "-XX:ProfileMaturityPercentage={}",
+			"min" : 5,
+			"max" : 40,
+			"step": ["linear", 5]
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-RangeCheckElimination"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:+ReduceSignalUsage"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-RegisterFinalizersAtInit"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:+RelaxAccessControlCheck"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-UseSharedSpaces"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:+RequireSharedSpaces"
+		},
+		
+		{
+			"type": "bool",
+			"format": "-XX:+VerifySharedSpaces",
+			"_comment": "index: 280"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:+RestoreMXCSROnJNICalls"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-RestrictReservedStack"
+		},
+		{
+			"type": "control",
+			"variants" : [
+                {
+                    "format" : "-XX:+SafepointTimeout",
+                    "deactivate": []
+                },
+				{
+                    "format" : "",
+                    "deactivate": [284]
+                }
+            ]
+		},
+		{
+			"type": "int",
+			"format": "-XX:SafepointTimeoutDelay={}",
+			"min" : 5000,
+			"max" : 15000,
+			"step": ["linear", 1000]
+		},
+		{
+			"type": "bool",
+			"format": "-XX:+SegmentedCodeCache"
+		},
+		{
+			"type": "int",
+			"format": "-XX:SharedSymbolTableBucketSize={}",
+			"min" : 2,
+			"max" : 64,
+			"step": ["power", 2]
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-ShrinkHeapInSteps"
+		},
+		{
+			"type": "int",
+			"format": "-XX:SoftRefLRUPolicyMSPerMB={}",
+			"min" : 200,
+			"max" : 1800,
+			"step": ["linear", 200]
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-StackTraceInThrowable"
+		},
+		
+		{
+			"type": "int",
+			"format": "-XX:StartAggressiveSweepingAt={}",
+			"min" : 0,
+			"max" : 30,
+			"step": ["linear", 5]
+		},
+		{
+			"type": "bool",
+			"format": "-XX:+StartAttachListener"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:+StressLdcRewrite"
+		},
+		{
+			"type": "control",
+			"variants" : [
+                {
+                    "format" : "-XX:+UseStringDeduplication",
+                    "deactivate": []
+                },
+				{
+                    "format" : "",
+                    "deactivate": [294]
+                }
+            ]
+		},
+		{
+			"type": "int",
+			"format": "-XX:StringDeduplicationAgeThreshold={}",
+			"min" : 1,
+			"max" : 5,
+			"step": ["linear", 1]
+		},
+		{
+			"type": "int",
+			"format": "-XX:StringTableSize={}",
+			"min" : 8192,
+			"max" : 524288,
+			"step": ["power", 2]
+		},
+		{
+			"type": "int",
+			"format": "-XX:SuspendRetryCount={}",
+			"min" : 20,
+			"max" : 80,
+			"step": ["linear", 10]
+		},
+		{
+			"type": "int",
+			"format": "-XX:SuspendRetryDelay={}",
+			"min" : 2,
+			"max" : 8,
+			"step": ["linear", 1]
+		},
+		{
+			"type": "double",
+			"format": "-XX:SweeperThreshold={}",
+			"min" : 0.1,
+			"max" : 0.9,
+			"step": ["linear", 0.2]
+		},
+		{
+			"type": "bool",
+			"format": "-XX:+TraceSuspendWaitFailures"
+		},
+		
+		{
+			"type": "control",
+			"variants" : [
+                {
+                    "format" : "",
+                    "deactivate": []
+                },
+				{
+                    "format" : "-XX:-UseTypeProfile",
+                    "deactivate": [301,302,303]
+                }
+            ],
+			"_comment": "index: 300"
+		},
+		{
+			"type": "int",
+			"format": "-XX:TypeProfileArgsLimit={}",
+			"min" : 1,
+			"max" : 16,
+			"step": ["linear", 3]
+		},
+		{
+			"type": "int",
+			"format": "-XX:TypeProfileParmsLimit={}",
+			"min" : 1,
+			"max" : 64,
+			"step": ["power", 2]
+		},
+		{
+			"type": "int",
+			"format": "-XX:TypeProfileWidth={}",
+			"min" : 0,
+			"max" : 8,
+			"step": ["linear", 1]
+		},
+		{
+			"type": "int",
+			"format": "-XX:UnguardOnExecutionViolation={}",
+			"min" : 0,
+			"max" : 2,
+			"step": ["linear", 1]
+		},
+		{
+			"type": "bool",
+			"format": "-XX:+UseAES"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:+UseBASE64Intrinsics"
+		},
+		
+		
+		
+		{
+			"type": "bool",
+			"format": "-XX:-UseCodeAging"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-UseCodeCacheFlushing"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-UseCounterDecay"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-UseEmptySlotsInSupers"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:+UseFMA"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:+UseHeavyMonitors"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-UseInlineCaches"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-UseLoopCounter"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:-UseNotificationThread"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:+UsePopCountInstruction"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:+UseSHA"
+		},
+		{
+			"type": "bool",
+			"format": "-XX:+UseXMMForArrayCopy"
 		}
     ]
 }

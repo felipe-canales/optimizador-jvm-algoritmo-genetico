@@ -27,6 +27,7 @@ def evaluate(sbj, its = 2):
         
         if b"Could not create the Java Virtual Machine" in s.stderr:
             print('  '.join(params))
+            print(str(s.stderr,encoding="latin1"))
             raise RuntimeError("Invalid parameter values")
         elif b"PASSED" in s.stderr:
             times.append(int(s.stderr.split(b' ')[-3]))
