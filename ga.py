@@ -3,10 +3,23 @@ import json, random
 
 MAX_FITNESS = 999999
 MUTATION_CHANCE = 0.1
+DEFAULT_CHANCE = 0.3
 
 
 with open("genes.json") as gene_file:
     gene_template = json.load(gene_file)
+    
+excluded_categories = [] #Accept gc, c1, c2, runtime
+
+used_genes = list(gene_template["genes"])
+
+def exclude(cats):
+    used_genes.clear()
+    excluded_categories.extend(cats)
+    print("Excluding", ",".join(cats))
+    for gene in gene_template["genes"]:
+        if not gene["category"] in excluded_categories:
+            used_genes.append(gene)
 
 
 def value_range(g):
@@ -30,8 +43,8 @@ def choose_value_or_null(val, chance):
 
 gene_init = {
     "control": lambda g: random.randint(0, len(g["variants"]) - 1),
-    "int": lambda g: choose_value_or_null(random.choice(value_range(g)), 0.2),
-    "double": lambda g: choose_value_or_null(random.choice(value_range(g)), 0.2),
+    "int": lambda g: choose_value_or_null(random.choice(value_range(g)), DEFAULT_CHANCE),
+    "double": lambda g: choose_value_or_null(random.choice(value_range(g)), DEFAULT_CHANCE),
     "bool": lambda g: random.random() >= 0.5
 }
 
@@ -42,7 +55,7 @@ def set_seed(s):
 
 def new_subject():
     sequence = []
-    for gene in gene_template['genes']:
+    for gene in used_genes:
         sequence.append(gene_init[gene["type"]](gene))
     return sequence
 
@@ -94,19 +107,26 @@ def next_generation(subjects, target):
     return new_gen
 
 
+def is_deactivated(gene_groups, deactivated_list):
+    for deac in deactivated_list:
+        if deac in gene_groups:
+            return True
+    return False
+
+
 def get_active_genes(subject):
     active = []
     deactivated = []
     # get deactivated genes
     for i in range(len(subject)):
-        g = gene_template["genes"][i]
+        g = used_genes[i]
         if g["type"] == "control":
             deactivated.extend(g["variants"][subject[i]]["deactivate"])
     # get flags
     for i in range(len(subject)):
-        if i in deactivated or subject[i] == None:
+        if subject[i] == None or is_deactivated(used_genes[i]["groups"], deactivated):
             continue
-        g = gene_template["genes"][i]
+        g = used_genes[i]
         if g["type"] == "control":
             active.append(g["variants"][subject[i]]["format"])
         elif g["type"] == "bool":

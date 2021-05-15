@@ -3,62 +3,477 @@
     [
         {
             "type" : "control",
-			"category" : "gc",
-			"groups" : "",
+            "category" : "gc",
+            "groups" : "",
+            "variants" : [
+                {
+                    "format" : "-XX:+UseSerialGC",
+                    "deactivate": ["AdaptiveSizePolicy", "AdaptiveSizePolicySelector", "ParallelGC", "G1GC", "ZGC"]
+                },
+                {
+                    "format" : "-XX:+UseParallelGC",
+                    "deactivate": ["G1GC", "ZGC"]
+                },
+                {
+                    "format" : "-XX:+UseG1GC",
+                    "deactivate": ["ParallelGC", "ZGC"]
+                },
+                {
+                    "format" : "-XX:+UseZGC",
+                    "deactivate": ["AdaptiveSizePolicy", "AdaptiveSizePolicySelector", "ParallelGC", "G1GC"]
+                }
+            ]
+        },
+        {
+            "type": "bool",
+            "category" : "gc",
+            "groups" : "ParallelGC",
+            "format": "-XX:-UseMaximumCompactionOnSystemGC"
+        },
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "ParallelGC",
+            "format": "-XX:HeapMaximumCompactionInterval={}",
+            "min" : 10,
+            "max" : 30,
+            "step": ["linear", 5]
+        },
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "ParallelGC",
+            "format": "-XX:HeapFirstMaximumCompactionCount={}",
+            "min" : 1,
+            "max" : 5,
+            "step": ["linear", 1]
+        },
+
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "ParallelGC",
+            "format": "-XX:ParallelGCBufferWastePct={}",
+            "min" : 5,
+            "max" : 15,
+            "step": ["linear", 5]
+        },
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "ParallelGC",
+            "format": "-XX:ParallelOldDeadWoodLimiterMean={}",
+            "min" : 25,
+            "max" : 75,
+            "step": ["linear", 10]
+        },
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "ParallelGC",
+            "format": "-XX:ParallelOldDeadWoodLimiterStdDev={}",
+            "min" : 40,
+            "max" : 100,
+            "step": ["linear", 20]
+        },
+        {
+            "type": "bool",
+            "category" : "gc",
+            "groups" : "ParallelGC",
+            "format": "-XX:-PSChunkLargeArrays"
+        },
+        {
+            "type": "control",
+            "category" : "gc",
+            "groups" : "G1GC",
+            "variants" : [
+                {
+                    "format" : "-XX:+G1UseAdaptiveConcRefinement",
+                    "deactivate": ["AdaptiveConcRefinement"]
+                },
+                {
+                    "format" : "-XX:-G1UseAdaptiveConcRefinement",
+                    "deactivate": []
+                }
+            ]
+        },
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "G1GC:AdaptiveConcRefinement",
+            "format": "-XX:G1ConcRefinementGreenZone={}",
+            "min" : 2,
+            "max" : 8,
+            "step": ["power", 2]
+        },
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "G1GC:AdaptiveConcRefinement",
+            "format": "-XX:G1ConcRefinementYellowZone={}",
+            "min" : 8,
+            "max" : 32,
+            "step": ["power", 2]
+        },
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "G1GC:AdaptiveConcRefinement",
+            "format": "-XX:G1ConcRefinementRedZone={}",
+            "min" : 32,
+            "max" : 128,
+            "step": ["linear", 5]
+        },
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "G1GC:AdaptiveConcRefinement",
+            "format": "-XX:G1ConcRefinementServiceIntervalMillis={}",
+            "min" : 150,
+            "max" : 450,
+            "step": ["linear", 50]
+        },
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "G1GC:AdaptiveConcRefinement",
+            "format": "-XX:G1ConcRefinementThreads={}",
+            "min" : 2,
+            "max" : 20,
+            "step": ["linear", 2]
+        },
+
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "G1GC:AdaptiveConcRefinement",
+            "format": "-XX:G1ConcRefinementThresholdStep={}",
+            "min" : 1,
+            "max" : 6,
+            "step": ["linear", 1]
+        },
+        {
+            "type": "control",
+            "category" : "gc",
+            "groups" : "G1GC",
+            "variants" : [
+                {
+                    "format" : "-XX:G1PeriodicGCInterval=0",
+                    "deactivate": ["PeriodicGCInterval"]
+                },
+                {
+                    "format" : "",
+                    "deactivate": []
+                }
+            ]
+        },
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "G1GC:PeriodicGCInterval",
+            "format": "-XX:G1PeriodicGCInterval={}",
+            "min" : 50,
+            "max" : 400,
+            "step": ["linear", 50]
+        },
+        {
+            "type": "bool",
+            "category" : "gc",
+            "groups" : "G1GC:PeriodicGCInterval",
+            "format": "-XX:-G1PeriodicGCInvokesConcurrent"
+        },
+        {
+            "type": "double",
+            "category" : "gc",
+            "groups" : "G1GC:PeriodicGCInterval",
+            "format": "-XX:G1PeriodicGCSystemLoadThreshold={}",
+            "min" : 0.0,
+            "max" : 100.0,
+            "step": ["linear", 20.0]
+        },
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "G1GC:PeriodicGCInterval",
+            "format": "-XX:G1ConcMarkStepDurationMillis={}",
+            "min" : 5,
+            "max" : 15,
+            "step": ["linear", 5]
+        },
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "G1GC",
+            "format": "-XX:G1ConcRSHotCardLimit={}",
+            "min" : 2,
+            "max" : 6,
+            "step": ["linear", 2]
+        },
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "G1GC",
+            "format": "-XX:G1ConcRSLogCacheSize={}",
+            "min" : 5,
+            "max" : 15,
+            "step": ["linear", 5]
+        },
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "G1GC",
+            "format": "-XX:G1ConfidencePercent={}",
+            "min" : 25,
+            "max" : 75,
+            "step": ["linear", 10]
+        },
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "G1GC",
+            "format": "-XX:G1HeapRegionSize={}K",
+            "min" : 512,
+            "max" : 8192,
+            "step": ["power", 2]
+        },
+
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "G1GC",
+            "format": "-XX:G1HeapWastePercent={}",
+            "min" : 1,
+            "max" : 9,
+            "step": ["linear", 2]
+        },
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "G1GC",
+            "format": "-XX:G1MixedGCCountTarget={}",
+            "min" : 4,
+            "max" : 12,
+            "step": ["linear", 4]
+        },
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "G1GC",
+            "format": "-XX:G1RSetRegionEntries={}",
+            "min" : 128,
+            "max" : 2048,
+            "step": ["power", 2]
+        },
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "G1GC",
+            "format": "-XX:G1RSetSparseRegionEntries={}",
+            "min" : 4,
+            "max" : 64,
+            "step": ["power", 2]
+        },
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "G1GC",
+            "format": "-XX:G1RSetUpdatingPauseTimePercent={}",
+            "min" : 5,
+            "max" : 15,
+            "step": ["linear", 5]
+        },
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "G1GC",
+            "format": "-XX:G1RefProcDrainInterval={}",
+            "min" : 250,
+            "max" : 4000,
+            "step": ["power", 2]
+        },
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "G1GC",
+            "format": "-XX:G1ReservePercent={}",
+            "min" : 5,
+            "max" : 15,
+            "step": ["linear", 5]
+        },
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "G1GC",
+            "format": "-XX:G1SATBBufferEnqueueingThresholdPercent={}",
+            "min" : 30,
+            "max" : 90,
+            "step": ["linear", 15]
+        },                    
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "G1GC",
+            "format": "-XX:G1SATBBufferSize={}",
+            "min" : 256,
+            "max" : 4096,
+            "step": ["power", 2]
+        },
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "G1GC",
+            "format": "-XX:G1UpdateBufferSize={}",
+            "min" : 64,
+            "max" : 1024,
+            "step": ["power", 2]
+        },
+
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "G1GC",
+            "format": "-XX:InitiatingHeapOccupancyPercent={}",
+            "min" : 15,
+            "max" : 75,
+            "step": ["linear", 10]
+        },
+        {
+            "type": "bool",
+            "category" : "gc",
+            "groups" : "G1GC",
+            "format": "-XX:-G1UseAdaptiveIHOP"
+        },
+        {
+            "type": "bool",
+            "category" : "gc",
+            "groups" : "G1GC",
+            "format": "-XX:+ExplicitGCInvokesConcurrent"
+        },
+        {
+            "type": "double",
+            "category" : "gc",
+            "groups" : "ZGC",
+            "format": "-XX:ZAllocationSpikeTolerance={}",
+            "min" : 0.5,
+            "max" : 3.5,
+            "step": ["linear", 0.5]
+        },
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "ZGC",
+            "format": "-XX:ZCollectionInterval={}",
+            "min" : 0,
+            "max" : 400,
+            "step": ["linear", 50]
+        },
+        {
+            "type": "double",
+            "category" : "gc",
+            "groups" : "ZGC",
+            "format": "-XX:ZFragmentationLimit={}",
+            "min" : 10.0,
+            "max" : 40.0,
+            "step": ["linear", 5.0]
+        },
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "ZGC",
+            "format": "-XX:ZMarkStackSpaceLimit={}G",
+            "min" : 2,
+            "max" : 32,
+            "step": ["power", 2]
+        },
+        {
+            "type": "bool",
+            "category" : "gc",
+            "groups" : "ZGC",
+            "format": "-XX:-ZProactive"
+        },
+        {
+            "type": "control",
+            "category" : "gc",
+            "groups" : "ZGC",
+            "variants" : [
+                {
+                    "format" : "-XX:+ZUncommit",
+                    "deactivate": []
+                },
+                {
+                    "format" : "-XX:-ZUncommit",
+                    "deactivate": ["Uncommit"]
+                }
+            ]
+        },
+
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "ZGC:Uncommit",
+            "format": "-XX:ZUncommitDelay={}",
+            "min" : 100,
+            "max" : 600,
+            "step": ["linear", 50]
+        },
+        {
+            "type" : "control",
+            "category" : "gc",
+            "groups" : "AdaptiveSizePolicySelector",
             "variants" : [
                 {
                     "format" : "-XX:+UseAdaptiveSizePolicy",
-                    "deactivate": [21,22,23,24,25]
+                    "deactivate": ["SurvivorRatio"]
                 },
                 {
                     "format" : "-XX:-UseAdaptiveSizePolicy",
-                    "deactivate": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+                    "deactivate": ["AdaptiveSizePolicy"]
                 }
             ]
         },
         {
             "type" : "control",
-			"category" : "gc",
-			"groups" : "AdaptiveSizePolicy",
+            "category" : "gc",
+            "groups" : "AdaptiveSizePolicy",
             "variants" : [
                 {
                     "format" : "-XX:-UseAdaptiveSizeDecayMajorGCCost",
-                    "deactivate": [6]
+                    "deactivate": ["MajorGCDecay"]
                 },
                 {
-                    "format" : "-XX:+UseAdaptiveSizeDecayMajorGCCost",
+                    "format" : "",
                     "deactivate": []
                 }
             ]
         },
         {
             "type" : "bool",
-			"category" : "gc",
-			"groups" : "AdaptiveSizePolicy",
+            "category" : "gc",
+            "groups" : "AdaptiveSizePolicy",
             "format" : "-XX:-UseAdaptiveSizePolicyFootprintGoal"
         },
         {
             "type" : "bool",
-			"category" : "gc",
-			"groups" : "AdaptiveSizePolicy",
+            "category" : "gc",
+            "groups" : "AdaptiveSizePolicy",
             "format" : "-XX:+UseAdaptiveSizePolicyWithSystemGC"
-		},
-		{
+        },
+        {
             "type" : "bool",
-			"category" : "gc",
-			"groups" : "AdaptiveSizePolicy",
+            "category" : "gc",
+            "groups" : "AdaptiveSizePolicy",
             "format" : "-XX:-UseAdaptiveGenerationSizePolicyAtMajorCollection"
-		},
-		{
+        },
+        {
             "type" : "bool",
-			"category" : "gc",
-			"groups" : "AdaptiveSizePolicy",
+            "category" : "gc",
+            "groups" : "AdaptiveSizePolicy",
             "format" : "-XX:-UseAdaptiveGenerationSizePolicyAtMinorCollection"
         },
         {
             "type" : "int",
-			"category" : "gc",
-			"groups" : "AdaptiveSizePolicy:MajorGCDecay",
+            "category" : "gc",
+            "groups" : "AdaptiveSizePolicy:MajorGCDecay",
             "format" : "-XX:AdaptiveSizeMajorGCDecayTimeScale={}",
             "min" : 5,
             "max" : 15,
@@ -66,8 +481,8 @@
         },
         {
             "type" : "int",
-			"category" : "gc",
-			"groups" : "AdaptiveSizePolicy",
+            "category" : "gc",
+            "groups" : "AdaptiveSizePolicy",
             "format" : "-XX:AdaptiveSizePolicyCollectionCostMargin={}",
             "min" : 25,
             "max" : 75,
@@ -75,8 +490,8 @@
         },
         {
             "type" : "int",
-			"category" : "gc",
-			"groups" : "AdaptiveSizePolicy",
+            "category" : "gc",
+            "groups" : "AdaptiveSizePolicy",
             "format" : "-XX:AdaptiveSizePolicyInitializingSteps={}",
             "min" : 10,
             "max" : 30,
@@ -84,45 +499,45 @@
         },
         {
             "type" : "int",
-			"category" : "gc",
-			"groups" : "AdaptiveSizePolicy",
+            "category" : "gc",
+            "groups" : "AdaptiveSizePolicy",
             "format" : "-XX:AdaptiveSizePolicyOutputInterval={}",
             "min" : 0,
             "max" : 100,
             "step" : ["linear", 25]
-		},
-		
+        },
+        
         {
             "type" : "int",
-			"category" : "gc",
-			"groups" : "AdaptiveSizePolicy",
+            "category" : "gc",
+            "groups" : "AdaptiveSizePolicy",
             "format" : "-XX:AdaptiveSizePolicyWeight={}",
             "min" : 0,
             "max" : 50,
             "step" : ["linear", 10]
-		},
+        },
         {
             "type" : "int",
-			"category" : "gc",
-			"groups" : "AdaptiveSizePolicy",
+            "category" : "gc",
+            "groups" : "AdaptiveSizePolicy",
             "format" : "-XX:AdaptiveSizeThroughPutPolicy={}",
             "min" : 0,
             "max" : 1,
             "step" : ["linear", 1]
-		},
-		{
+        },
+        {
             "type" : "double",
-			"category" : "gc",
-			"groups" : "AdaptiveSizePolicy",
+            "category" : "gc",
+            "groups" : "AdaptiveSizePolicy",
             "format" : "-XX:GCTimeRatio={}",
             "min" : 55,
             "max" : 143,
             "step" : ["linear", 22]
-		},
-		{
+        },
+        {
             "type" : "int",
-			"category" : "gc",
-			"groups" : "AdaptiveSizePolicy",
+            "category" : "gc",
+            "groups" : "AdaptiveSizePolicy",
             "format" : "-XX:MaxGCPauseMillis={}",
             "min" : 50,
             "max" : 400,
@@ -130,8 +545,8 @@
         },
         {
             "type" : "int",
-			"category" : "gc",
-			"groups" : "AdaptiveSizePolicy",
+            "category" : "gc",
+            "groups" : "AdaptiveSizePolicy",
             "format" : "-XX:TenuredGenerationSizeIncrement={}",
             "min" : 10,
             "max" : 30,
@@ -139,8 +554,8 @@
         },
         {
             "type" : "int",
-			"category" : "gc",
-			"groups" : "AdaptiveSizePolicy",
+            "category" : "gc",
+            "groups" : "AdaptiveSizePolicy",
             "format" : "-XX:TenuredGenerationSizeSupplement={}",
             "min" : 40,
             "max" : 100,
@@ -148,8 +563,8 @@
         },
         {
             "type" : "int",
-			"category" : "gc",
-			"groups" : "AdaptiveSizePolicy",
+            "category" : "gc",
+            "groups" : "AdaptiveSizePolicy",
             "format" : "-XX:TenuredGenerationSizeSupplementDecay={}",
             "min" : 1,
             "max" : 4,
@@ -157,8 +572,8 @@
         },
         {
             "type" : "int",
-			"category" : "gc",
-			"groups" : "AdaptiveSizePolicy",
+            "category" : "gc",
+            "groups" : "AdaptiveSizePolicy",
             "format" : "-XX:YoungGenerationSizeIncrement={}",
             "min" : 10,
             "max" : 30,
@@ -166,8 +581,8 @@
         },
         {
             "type" : "int",
-			"category" : "gc",
-			"groups" : "AdaptiveSizePolicy",
+            "category" : "gc",
+            "groups" : "AdaptiveSizePolicy",
             "format" : "-XX:YoungGenerationSizeSupplement={}",
             "min" : 40,
             "max" : 100,
@@ -175,18 +590,18 @@
         },
         {
             "type" : "int",
-			"category" : "gc",
-			"groups" : "AdaptiveSizePolicy",
+            "category" : "gc",
+            "groups" : "AdaptiveSizePolicy",
             "format" : "-XX:YoungGenerationSizeSupplementDecay={}",
             "min" : 1,
             "max" : 4,
             "step" : ["linear", 1]
-		},
-		
+        },
+        
         {
             "type" : "int",
-			"category" : "gc",
-			"groups" : "AdaptiveSizePolicy",
+            "category" : "gc",
+            "groups" : "AdaptiveSizePolicy",
             "format" : "-XX:AdaptiveSizeDecrementScaleFactor={}",
             "min" : 2,
             "max" : 6,
@@ -194,8 +609,8 @@
         },
         {
             "type" : "int",
-			"category" : "gc",
-			"groups" : "SurvivorRatio",
+            "category" : "gc",
+            "groups" : "SurvivorRatio",
             "format" : "-XX:SurvivorRatio={}",
             "min" : 4,
             "max" : 12,
@@ -203,8 +618,8 @@
         },
         {
             "type" : "int",
-			"category" : "gc",
-			"groups" : "SurvivorRatio",
+            "category" : "gc",
+            "groups" : "SurvivorRatio",
             "format" : "-XX:InitialSurvivorRatio={}",
             "min" : 4,
             "max" : 12,
@@ -212,8 +627,8 @@
         },
         {
             "type" : "int",
-			"category" : "gc",
-			"groups" : "SurvivorRatio",
+            "category" : "gc",
+            "groups" : "SurvivorRatio",
             "format" : "-XX:MinSurvivorRatio={}",
             "min" : 3,
             "max" : 6,
@@ -221,8 +636,8 @@
         },
         {
             "type" : "int",
-			"category" : "gc",
-			"groups" : "SurvivorRatio",
+            "category" : "gc",
+            "groups" : "SurvivorRatio",
             "format" : "-XX:SurvivorPadding={}",
             "min" : 1,
             "max" : 5,
@@ -230,1208 +645,761 @@
         },
         {
             "type" : "int",
-			"category" : "gc",
-			"groups" : "SurvivorRatio",
+            "category" : "gc",
+            "groups" : "SurvivorRatio",
             "format" : "-XX:TargetSurvivorRatio={}",
             "min" : 25,
             "max" : 75,
             "step" : ["linear", 10]
         },
-		{
-            "type" : "control",
-			"category" : "gc",
-			"groups" : "",
-            "variants" : [
-                {
-                    "format" : "-XX:+UseSerialGC",
-                    "deactivate": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70]
-                },
-                {
-                    "format" : "-XX:+UseParallelGC",
-                    "deactivate": [34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70]
-                },
-				{
-                    "format" : "-XX:+UseG1GC",
-                    "deactivate": [27,28,29,30,31,32,33,63,64,65,66,67,68,69,70]
-                },
-				{
-                    "format" : "-XX:+UseZGC",
-                    "deactivate": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62]
-                }
-            ]
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "",
+            "format": "-XX:MinTLABSize={}K",
+            "min" : 2,
+            "max" : 8,
+            "step": ["power", 2]
         },
-		{
-			"type": "bool",
-			"category" : "gc",
-			"groups" : "ParallelGC",
-			"format": "-XX:-UseMaximumCompactionOnSystemGC"
-		},
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "ParallelGC",
-			"format": "-XX:HeapMaximumCompactionInterval={}",
-			"min" : 10,
-			"max" : 30,
-			"step": ["linear", 5]
-		},
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "ParallelGC",
-			"format": "-XX:HeapFirstMaximumCompactionCount={}",
-			"min" : 1,
-			"max" : 5,
-			"step": ["linear", 1]
-		},
-
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "ParallelGC",
-			"format": "-XX:ParallelGCBufferWastePct={}",
-			"min" : 5,
-			"max" : 15,
-			"step": ["linear", 5]
-		},
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "ParallelGC",
-			"format": "-XX:ParallelOldDeadWoodLimiterMean={}",
-			"min" : 25,
-			"max" : 75,
-			"step": ["linear", 10]
-		},
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "ParallelGC",
-			"format": "-XX:ParallelOldDeadWoodLimiterStdDev={}",
-			"min" : 40,
-			"max" : 100,
-			"step": ["linear", 20]
-		},
-		{
-			"type": "bool",
-			"category" : "gc",
-			"groups" : "ParallelGC",
-			"format": "-XX:-PSChunkLargeArrays"
-		},
-		{
-			"type": "control",
-			"category" : "gc",
-			"groups" : "G1GC",
-			"variants" : [
-                {
-                    "format" : "-XX:+G1UseAdaptiveConcRefinement",
-                    "deactivate": [35,36,37,38,39,40]
-                },
-                {
-                    "format" : "-XX:-G1UseAdaptiveConcRefinement",
-                    "deactivate": []
-                }
-            ]
-		},
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "G1GC:AdaptiveConcRefinement",
-			"format": "-XX:G1ConcRefinementGreenZone={}",
-			"min" : 2,
-			"max" : 8,
-			"step": ["power", 2]
-		},
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "G1GC:AdaptiveConcRefinement",
-			"format": "-XX:G1ConcRefinementYellowZone={}",
-			"min" : 8,
-			"max" : 32,
-			"step": ["power", 2]
-		},
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "G1GC:AdaptiveConcRefinement",
-			"format": "-XX:G1ConcRefinementRedZone={}",
-			"min" : 32,
-			"max" : 128,
-			"step": ["linear", 5]
-		},
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "G1GC:AdaptiveConcRefinement",
-			"format": "-XX:G1ConcRefinementServiceIntervalMillis={}",
-			"min" : 150,
-			"max" : 450,
-			"step": ["linear", 50]
-		},
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "G1GC:AdaptiveConcRefinement",
-			"format": "-XX:G1ConcRefinementThreads={}",
-			"min" : 2,
-			"max" : 20,
-			"step": ["linear", 2]
-		},
-
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "G1GC:AdaptiveConcRefinement",
-			"format": "-XX:G1ConcRefinementThresholdStep={}",
-			"min" : 1,
-			"max" : 6,
-			"step": ["linear", 1]
-		},
-		{
-			"type": "control",
-			"category" : "gc",
-			"groups" : "G1GC",
-			"variants" : [
-                {
-                    "format" : "-XX:G1PeriodicGCInterval=0",
-                    "deactivate": [42,43,44]
-                },
-                {
-                    "format" : "",
-                    "deactivate": []
-                }
-            ]
-		},
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "G1GC:PeriodicGCInterval",
-			"format": "-XX:G1PeriodicGCInterval={}",
-			"min" : 50,
-			"max" : 400,
-			"step": ["linear", 50]
-		},
-		{
-			"type": "bool",
-			"category" : "gc",
-			"groups" : "G1GC:PeriodicGCInterval",
-			"format": "-XX:-G1PeriodicGCInvokesConcurrent"
-		},
-		{
-			"type": "double",
-			"category" : "gc",
-			"groups" : "G1GC:PeriodicGCInterval",
-			"format": "-XX:G1PeriodicGCSystemLoadThreshold={}",
-			"min" : 0.0,
-			"max" : 100.0,
-			"step": ["linear", 20.0]
-		},
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "G1GC:PeriodicGCInterval",
-			"format": "-XX:G1ConcMarkStepDurationMillis={}",
-			"min" : 5,
-			"max" : 15,
-			"step": ["linear", 5]
-		},
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "G1GC",
-			"format": "-XX:G1ConcRSHotCardLimit={}",
-			"min" : 2,
-			"max" : 6,
-			"step": ["linear", 2]
-		},
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "G1GC",
-			"format": "-XX:G1ConcRSLogCacheSize={}",
-			"min" : 5,
-			"max" : 15,
-			"step": ["linear", 5]
-		},
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "G1GC",
-			"format": "-XX:G1ConfidencePercent={}",
-			"min" : 25,
-			"max" : 75,
-			"step": ["linear", 10]
-		},
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "G1GC",
-			"format": "-XX:G1HeapRegionSize={}K",
-			"min" : 512,
-			"max" : 8192,
-			"step": ["power", 2]
-		},
-
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "G1GC",
-			"format": "-XX:G1HeapWastePercent={}",
-			"min" : 1,
-			"max" : 9,
-			"step": ["linear", 2]
-		},
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "G1GC",
-			"format": "-XX:G1MixedGCCountTarget={}",
-			"min" : 4,
-			"max" : 12,
-			"step": ["linear", 4]
-		},
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "G1GC",
-			"format": "-XX:G1RSetRegionEntries={}",
-			"min" : 128,
-			"max" : 2048,
-			"step": ["power", 2]
-		},
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "G1GC",
-			"format": "-XX:G1RSetSparseRegionEntries={}",
-			"min" : 4,
-			"max" : 64,
-			"step": ["power", 2]
-		},
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "G1GC",
-			"format": "-XX:G1RSetUpdatingPauseTimePercent={}",
-			"min" : 5,
-			"max" : 15,
-			"step": ["linear", 5]
-		},
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "G1GC",
-			"format": "-XX:G1RefProcDrainInterval={}",
-			"min" : 250,
-			"max" : 4000,
-			"step": ["power", 2]
-		},
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "G1GC",
-			"format": "-XX:G1ReservePercent={}",
-			"min" : 5,
-			"max" : 15,
-			"step": ["linear", 5]
-		},
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "G1GC",
-			"format": "-XX:G1SATBBufferEnqueueingThresholdPercent={}",
-			"min" : 30,
-			"max" : 90,
-			"step": ["linear", 15]
-		},                    
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "G1GC",
-			"format": "-XX:G1SATBBufferSize={}",
-			"min" : 256,
-			"max" : 4096,
-			"step": ["power", 2]
-		},
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "G1GC",
-			"format": "-XX:G1UpdateBufferSize={}",
-			"min" : 64,
-			"max" : 1024,
-			"step": ["power", 2]
-		},
-
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "G1GC",
-			"format": "-XX:InitiatingHeapOccupancyPercent={}",
-			"min" : 15,
-			"max" : 75,
-			"step": ["linear", 10]
-		},
-		{
-			"type": "bool",
-			"category" : "gc",
-			"groups" : "G1GC",
-			"format": "-XX:-G1UseAdaptiveIHOP"
-		},
-		{
-			"type": "bool",
-			"category" : "gc",
-			"groups" : "G1GC",
-			"format": "-XX:+ExplicitGCInvokesConcurrent"
-		},
-		{
-			"type": "double",
-			"category" : "gc",
-			"groups" : "ZGC",
-			"format": "-XX:ZAllocationSpikeTolerance={}",
-			"min" : 0.5,
-			"max" : 3.5,
-			"step": ["linear", 0.5]
-		},
-		{
-			"type": "control",
-			"category" : "gc",
-			"groups" : "ZGC",
-			"variants" : [
-                {
-                    "format" : "",
-                    "deactivate": []
-                },
-                {
-                    "format" : "",
-                    "deactivate": []
-                }
-            ],
-			"_comment" : "REMOVE"
-		},
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "ZGC",
-			"format": "-XX:ZCollectionInterval={}",
-			"min" : 0,
-			"max" : 400,
-			"step": ["linear", 50]
-		},
-		{
-			"type": "double",
-			"category" : "gc",
-			"groups" : "ZGC",
-			"format": "-XX:ZFragmentationLimit={}",
-			"min" : 10.0,
-			"max" : 40.0,
-			"step": ["linear", 5.0]
-		},
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "ZGC",
-			"format": "-XX:ZMarkStackSpaceLimit={}G",
-			"min" : 2,
-			"max" : 32,
-			"step": ["power", 2]
-		},
-		{
-			"type": "bool",
-			"category" : "gc",
-			"groups" : "ZGC",
-			"format": "-XX:-ZProactive"
-		},
-		{
-			"type": "control",
-			"category" : "gc",
-			"groups" : "ZGC",
-			"variants" : [
-                {
-                    "format" : "-XX:+ZUncommit",
-                    "deactivate": []
-                },
-                {
-                    "format" : "-XX:-ZUncommit",
-                    "deactivate": [70]
-                }
-            ]
-		},
-
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "ZGC:Uncommit",
-			"format": "-XX:ZUncommitDelay={}",
-			"min" : 100,
-			"max" : 600,
-			"step": ["linear", 50]
-		},
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "",
-			"format": "-XX:MinTLABSize={}K",
-			"min" : 2,
-			"max" : 8,
-			"step": ["power", 2]
-		},
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "",
-			"format": "-XX:TLABAllocationWeight={}",
-			"min" : 15,
-			"max" : 55,
-			"step": ["linear", 10]
-		},
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "",
-			"format": "-XX:TLABRefillWasteFraction={}",
-			"min" : 16,
-			"max" : 256,
-			"step": ["power", 2]
-		},
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "",
-			"format": "-XX:TLABWasteIncrement={}",
-			"min" : 1,
-			"max" : 7,
-			"step": ["linear", 1]
-		},
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "",
-			"format": "-XX:TLABWasteTargetPercent={}",
-			"min" : 1,
-			"max" : 6,
-			"step": ["linear", 1]
-		},
-		{
-			"type": "bool",
-			"category" : "gc",
-			"groups" : "",
-			"format": "-XX:+ZeroTLAB"
-		},
-		{
-			"type": "control",
-			"category" : "gc",
-			"groups" : "",
-			"variants" : [
-                {
-                    "format" : "",
-                    "deactivate": []
-                },
-                {
-                    "format" : "",
-                    "deactivate": []
-                }
-            ],
-			"_comment" : "REMOVE"
-		},
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "",
-			"format": "-XX:TLABSize={}K",
-			"min" : 64,
-			"max" : 512,
-			"step": ["power", 2]
-		},
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "",
-			"format": "-XX:YoungPLABSize={}K",
-			"min" : 4,
-			"max" : 32,
-			"step": ["power", 2]
-		},
-		
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "",
-			"format": "-XX:OldPLABSize={}K",
-			"min" : 4,
-			"max" : 32,
-			"step": ["power", 2],
-			"_comment": "index: 80"
-		},
-		{
-			"type": "control",
-			"category" : "gc",
-			"groups" : "",
-			"variants" : [
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "",
+            "format": "-XX:TLABAllocationWeight={}",
+            "min" : 15,
+            "max" : 55,
+            "step": ["linear", 10]
+        },
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "",
+            "format": "-XX:TLABRefillWasteFraction={}",
+            "min" : 16,
+            "max" : 256,
+            "step": ["power", 2]
+        },
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "",
+            "format": "-XX:TLABWasteIncrement={}",
+            "min" : 1,
+            "max" : 7,
+            "step": ["linear", 1]
+        },
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "",
+            "format": "-XX:TLABWasteTargetPercent={}",
+            "min" : 1,
+            "max" : 6,
+            "step": ["linear", 1]
+        },
+        {
+            "type": "bool",
+            "category" : "gc",
+            "groups" : "",
+            "format": "-XX:+ZeroTLAB"
+        },
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "",
+            "format": "-XX:TLABSize={}K",
+            "min" : 64,
+            "max" : 512,
+            "step": ["power", 2]
+        },
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "",
+            "format": "-XX:YoungPLABSize={}K",
+            "min" : 4,
+            "max" : 32,
+            "step": ["power", 2]
+        },
+        
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "",
+            "format": "-XX:OldPLABSize={}K",
+            "min" : 4,
+            "max" : 32,
+            "step": ["power", 2],
+            "_comment": "index: 80"
+        },
+        {
+            "type": "control",
+            "category" : "gc",
+            "groups" : "",
+            "variants" : [
                 {
                     "format" : "-XX:+ResizePLAB",
                     "deactivate": []
                 },
                 {
                     "format" : "-XX:-ResizePLAB",
-                    "deactivate": [82,83]
+                    "deactivate": ["ResizePLAB"]
                 }
             ]
-		},
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "ResizePLAB",
-			"format": "-XX:PLABWeight={}",
-			"min" : 55,
-			"max" : 95,
-			"step": ["linear", 10]
-		},
-		{
-			"type": "int",
-			"category" : "gc",
-			"groups" : "ResizePLAB",
-			"format": "-XX:TargetPLABWastePct={}",
-			"min" : 4,
-			"max" : 16,
-			"step": ["linear", 3]
-		},
-		{
-			"type": "int",
-			"category" : "c1",
-			"groups" : "",
-			"format": "-XX:C1InlineStackLimit={}",
-			"min" : 2,
-			"max" : 18,
-			"step": ["linear", 2]
-		},
-		{
-			"type": "int",
-			"category" : "c1",
-			"groups" : "",
-			"format": "-XX:C1MaxInlineLevel={}",
-			"min" : 1,
-			"max" : 17,
-			"step": ["linear", 2]
-		},
-		{
-			"type": "int",
-			"category" : "c1",
-			"groups" : "",
-			"format": "-XX:C1MaxInlineSize={}",
-			"min" : 5,
-			"max" : 65,
-			"step": ["linear", 5]
-		},
-		{
-			"type": "int",
-			"category" : "c1",
-			"groups" : "",
-			"format": "-XX:C1MaxRecursiveInlineLevel={}",
-			"min" : 0,
-			"max" : 10,
-			"step": ["linear", 1]
-		},
-		{
-			"type": "int",
-			"category" : "c1",
-			"groups" : "",
-			"format": "-XX:C1MaxTrivialSize={}",
-			"min" : 0,
-			"max" : 12,
-			"step": ["linear", 2]
-		},
-		{
-			"type": "bool",
-			"category" : "c1",
-			"groups" : "",
-			"format": "-XX:-InlineSynchronizedMethods"
-		},
-		
-		{
-			"type": "bool",
-			"category" : "c1",
-			"groups" : "",
-			"format": "-XX:-C1OptimizeVirtualCallProfiling"
-		},
-		{
-			"type": "bool",
-			"category" : "c1",
-			"groups" : "",
-			"format": "-XX:-C1ProfileBranches"
-		},
-		{
-			"type": "bool",
-			"category" : "c1",
-			"groups" : "",
-			"format": "-XX:-C1ProfileCalls"
-		},
-		{
-			"type": "bool",
-			"category" : "c1",
-			"groups" : "",
-			"format": "-XX:-C1ProfileCheckcasts"
-		},
-		{
-			"type": "bool",
-			"category" : "c1",
-			"groups" : "",
-			"format": "-XX:-C1ProfileInlinedCalls"
-		},
-		{
-			"type": "bool",
-			"category" : "c1",
-			"groups" : "",
-			"format": "-XX:-C1ProfileVirtualCalls"
-		},
-		{
-			"type": "bool",
-			"category" : "c1",
-			"groups" : "",
-			"format": "-XX:-UseLoopInvariantCodeMotion"
-		},
-		{
-			"type": "int",
-			"category" : "c1",
-			"groups" : "",
-			"format": "-XX:ValueMapInitialSize={}",
-			"min" : 11,
-			"max" : 999,
-			"step": ["power", 3]
-		},
-		{
-			"type": "int",
-			"category" : "c1",
-			"groups" : "",
-			"format": "-XX:ValueMapMaxLoopSize={}",
-			"min" : 2,
-			"max" : 64,
-			"step": ["power", 2]
-		},
-		{
-			"type": "control",
-			"category" : "c2",
-			"groups" : "",
-			"variants" : [
+        },
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "ResizePLAB",
+            "format": "-XX:PLABWeight={}",
+            "min" : 55,
+            "max" : 95,
+            "step": ["linear", 10]
+        },
+        {
+            "type": "int",
+            "category" : "gc",
+            "groups" : "ResizePLAB",
+            "format": "-XX:TargetPLABWastePct={}",
+            "min" : 4,
+            "max" : 16,
+            "step": ["linear", 3]
+        },
+        {
+            "type": "int",
+            "category" : "c1",
+            "groups" : "",
+            "format": "-XX:C1InlineStackLimit={}",
+            "min" : 2,
+            "max" : 18,
+            "step": ["linear", 2]
+        },
+        {
+            "type": "int",
+            "category" : "c1",
+            "groups" : "",
+            "format": "-XX:C1MaxInlineLevel={}",
+            "min" : 1,
+            "max" : 17,
+            "step": ["linear", 2]
+        },
+        {
+            "type": "int",
+            "category" : "c1",
+            "groups" : "",
+            "format": "-XX:C1MaxInlineSize={}",
+            "min" : 5,
+            "max" : 65,
+            "step": ["linear", 5]
+        },
+        {
+            "type": "int",
+            "category" : "c1",
+            "groups" : "",
+            "format": "-XX:C1MaxRecursiveInlineLevel={}",
+            "min" : 0,
+            "max" : 10,
+            "step": ["linear", 1]
+        },
+        {
+            "type": "int",
+            "category" : "c1",
+            "groups" : "",
+            "format": "-XX:C1MaxTrivialSize={}",
+            "min" : 0,
+            "max" : 12,
+            "step": ["linear", 2]
+        },
+        {
+            "type": "bool",
+            "category" : "c1",
+            "groups" : "",
+            "format": "-XX:-InlineSynchronizedMethods"
+        },
+        
+        {
+            "type": "bool",
+            "category" : "c1",
+            "groups" : "",
+            "format": "-XX:-C1OptimizeVirtualCallProfiling"
+        },
+        {
+            "type": "bool",
+            "category" : "c1",
+            "groups" : "",
+            "format": "-XX:-C1ProfileBranches"
+        },
+        {
+            "type": "bool",
+            "category" : "c1",
+            "groups" : "",
+            "format": "-XX:-C1ProfileCalls"
+        },
+        {
+            "type": "bool",
+            "category" : "c1",
+            "groups" : "",
+            "format": "-XX:-C1ProfileCheckcasts"
+        },
+        {
+            "type": "bool",
+            "category" : "c1",
+            "groups" : "",
+            "format": "-XX:-C1ProfileInlinedCalls"
+        },
+        {
+            "type": "bool",
+            "category" : "c1",
+            "groups" : "",
+            "format": "-XX:-C1ProfileVirtualCalls"
+        },
+        {
+            "type": "bool",
+            "category" : "c1",
+            "groups" : "",
+            "format": "-XX:-UseLoopInvariantCodeMotion"
+        },
+        {
+            "type": "int",
+            "category" : "c1",
+            "groups" : "",
+            "format": "-XX:ValueMapInitialSize={}",
+            "min" : 11,
+            "max" : 999,
+            "step": ["power", 3]
+        },
+        {
+            "type": "int",
+            "category" : "c1",
+            "groups" : "",
+            "format": "-XX:ValueMapMaxLoopSize={}",
+            "min" : 2,
+            "max" : 64,
+            "step": ["power", 2]
+        },
+        {
+            "type": "control",
+            "category" : "c2",
+            "groups" : "",
+            "variants" : [
                 {
                     "format" : "",
                     "deactivate": []
                 },
                 {
                     "format" : "-XX:-DoEscapeAnalysis",
-                    "deactivate": [100,101,102,103]
+                    "deactivate": ["EscapeAnalysis"]
                 }
             ]
-		},
+        },
 
-		{
-			"type": "control",
-			"category" : "c2",
-			"groups" : "EscapeAnalysis",
-			"variants" : [
+        {
+            "type": "control",
+            "category" : "c2",
+            "groups" : "EscapeAnalysis",
+            "variants" : [
                 {
                     "format" : "",
                     "deactivate": []
                 },
                 {
                     "format" : "-XX:-EliminateAllocations",
-                    "deactivate": [101]
+                    "deactivate": ["EliminateAllocations"]
                 }
             ],
-			"_comment": "index: 100"
-		},
-		{
-			"type": "int",
-			"category" : "c2",
-			"groups" : "EscapeAnalysis:EliminateAllocations",
-			"format": "-XX:EliminateAllocationArraySizeLimit={}",
-			"min" : 16,
-			"max" : 256,
-			"step": ["power", 2]
-		},
-		{
-			"type": "int",
-			"category" : "c2",
-			"groups" : "EscapeAnalysis",
-			"format": "-XX:EscapeAnalysisTimeout={}",
-			"min" : 5,
-			"max" : 35,
-			"step": ["linear", 5]
-		},
-		{
-			"type": "bool",
-			"category" : "c2",
-			"groups" : "EscapeAnalysis",
-			"format": "-XX:-OptimizePtrCompare"
-		},
-		{
-			"type": "control",
-			"category" : "c2",
-			"groups" : "",
-			"variants" : [
+            "_comment": "index: 100"
+        },
+        {
+            "type": "int",
+            "category" : "c2",
+            "groups" : "EscapeAnalysis:EliminateAllocations",
+            "format": "-XX:EliminateAllocationArraySizeLimit={}",
+            "min" : 16,
+            "max" : 256,
+            "step": ["power", 2]
+        },
+        {
+            "type": "int",
+            "category" : "c2",
+            "groups" : "EscapeAnalysis",
+            "format": "-XX:EscapeAnalysisTimeout={}",
+            "min" : 5,
+            "max" : 35,
+            "step": ["linear", 5]
+        },
+        {
+            "type": "bool",
+            "category" : "c2",
+            "groups" : "EscapeAnalysis",
+            "format": "-XX:-OptimizePtrCompare"
+        },
+        {
+            "type": "control",
+            "category" : "c2",
+            "groups" : "",
+            "variants" : [
                 {
                     "format" : "",
                     "deactivate": []
                 },
                 {
                     "format" : "-XX:-UseJumpTables",
-                    "deactivate": [105,106]
+                    "deactivate": ["JumpTables"]
                 }
             ]
-		},
-		{
-			"type": "int",
-			"category" : "c2",
-			"groups" : "JumpTables",
-			"format": "-XX:MaxJumpTableSize={}",
-			"min" : 500,
-			"max" : 12500,
-			"step": ["linear", 1000]
-		},
-		{
-			"type": "int",
-			"category" : "c2",
-			"groups" : "JumpTables",
-			"format": "-XX:MaxJumpTableSparseness={}",
-			"min" : 1,
-			"max" : 15,
-			"step": ["linear", 2]
-		},
-		{
-			"type": "int",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:ArrayCopyLoadStoreMaxElem={}",
-			"min" : 2,
-			"max" : 16,
-			"step": ["linear", 2]
-		},
-		{
-			"type": "bool",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:-IncrementalInline"
-		},
-		{
-			"type": "int",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:LiveNodeCountInliningCutoff={}",
-			"min" : 20000,
-			"max" : 60000,
-			"step": ["linear", 5000]
-		},
-		
-		{
-			"type": "int",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:MaxInlineLevel={}",
-			"min" : 5,
-			"max" : 25,
-			"step": ["linear", 5]
-		},
-		{
-			"type": "int",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:MaxInlineSize={}",
-			"min" : 17,
-			"max" : 53,
-			"step": ["linear", 6]
-		},
-		{
-			"type": "int",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:MaxRecursiveInlineLevel={}",
-			"min" : 0,
-			"max" : 3,
-			"step": ["linear", 1]
-		},
-		{
-			"type": "int",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:MaxTrivialSize={}",
-			"min" : 3,
-			"max" : 9,
-			"step": ["linear", 1]
-		},
-		{
-			"type": "int",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:MultiArrayExpandLimit={}",
-			"min" : 3,
-			"max" : 9,
-			"step": ["linear", 1]
-		},
-		{
-			"type": "bool",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:-UseBimorphicInlining"
-		},
-		{
-			"type": "bool",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:-UseOnlyInlinedBimorphic"
-		},
-		{
-			"type": "bool",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:-AllowVectorizeOnDemand"
-		},
-		{
-			"type": "bool",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:-AlignVector"
-		},
-		{
-			"type": "bool",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:-BlockLayoutByFrequency"
-		},
-		
-		{
-			"type": "int",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:BlockLayoutMinDiamondPercentage={}",
-			"min" : 10,
-			"max" : 30,
-			"step": ["linear", 5],
-			"_comment": "index: 120"
-		},
-		{
-			"type": "bool",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:-BlockLayoutRotateLoops"
-		},
-		{
-			"type": "bool",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:-EliminateLocks"
-		},
-		{
-			"type": "bool",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:-EliminateNestedLocks"
-		},
-		{
-			"type": "bool",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:-DoReserveCopyInSuperWord"
-		},
-		{
-			"type": "int",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:LoopOptsCount={}",
-			"min" : 23,
-			"max" : 43,
-			"step": ["linear", 5]
-		},
-		{
-			"type": "control",
-			"category" : "c2",
-			"groups" : "",
-			"variants" : [
+        },
+        {
+            "type": "int",
+            "category" : "c2",
+            "groups" : "JumpTables",
+            "format": "-XX:MaxJumpTableSize={}",
+            "min" : 500,
+            "max" : 12500,
+            "step": ["linear", 1000]
+        },
+        {
+            "type": "int",
+            "category" : "c2",
+            "groups" : "JumpTables",
+            "format": "-XX:MaxJumpTableSparseness={}",
+            "min" : 1,
+            "max" : 15,
+            "step": ["linear", 2]
+        },
+        {
+            "type": "int",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:ArrayCopyLoadStoreMaxElem={}",
+            "min" : 2,
+            "max" : 16,
+            "step": ["linear", 2]
+        },
+        {
+            "type": "bool",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:-IncrementalInline"
+        },
+        {
+            "type": "int",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:LiveNodeCountInliningCutoff={}",
+            "min" : 20000,
+            "max" : 60000,
+            "step": ["linear", 5000]
+        },
+        
+        {
+            "type": "int",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:MaxInlineLevel={}",
+            "min" : 5,
+            "max" : 25,
+            "step": ["linear", 5]
+        },
+        {
+            "type": "int",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:MaxInlineSize={}",
+            "min" : 17,
+            "max" : 53,
+            "step": ["linear", 6]
+        },
+        {
+            "type": "int",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:MaxRecursiveInlineLevel={}",
+            "min" : 0,
+            "max" : 3,
+            "step": ["linear", 1]
+        },
+        {
+            "type": "int",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:MaxTrivialSize={}",
+            "min" : 3,
+            "max" : 9,
+            "step": ["linear", 1]
+        },
+        {
+            "type": "int",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:MultiArrayExpandLimit={}",
+            "min" : 3,
+            "max" : 9,
+            "step": ["linear", 1]
+        },
+        {
+            "type": "bool",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:-UseBimorphicInlining"
+        },
+        {
+            "type": "bool",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:-UseOnlyInlinedBimorphic"
+        },
+        {
+            "type": "bool",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:-AllowVectorizeOnDemand"
+        },
+        {
+            "type": "bool",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:-AlignVector"
+        },
+        {
+            "type": "bool",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:-BlockLayoutByFrequency"
+        },
+        
+        {
+            "type": "int",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:BlockLayoutMinDiamondPercentage={}",
+            "min" : 10,
+            "max" : 30,
+            "step": ["linear", 5],
+            "_comment": "index: 120"
+        },
+        {
+            "type": "bool",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:-BlockLayoutRotateLoops"
+        },
+        {
+            "type": "bool",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:-EliminateLocks"
+        },
+        {
+            "type": "bool",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:-EliminateNestedLocks"
+        },
+        {
+            "type": "bool",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:-DoReserveCopyInSuperWord"
+        },
+        {
+            "type": "int",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:LoopOptsCount={}",
+            "min" : 23,
+            "max" : 43,
+            "step": ["linear", 5]
+        },
+        {
+            "type": "control",
+            "category" : "c2",
+            "groups" : "",
+            "variants" : [
                 {
                     "format" : "-XX:+UseCountedLoopSafepoints",
                     "deactivate": []
                 },
                 {
                     "format" : "",
-                    "deactivate": [127,128]
+                    "deactivate": ["CountedLoopSafepoints"]
                 }
             ]
-		},
-		{
-			"type": "int",
-			"category" : "c2",
-			"groups" : "CountedLoopSafepoints",
-			"format": "-XX:LoopStripMiningIter={}",
-			"min" : 500,
-			"max" : 1500,
-			"step": ["linear", 250]
-		},
-		{
-			"type": "int",
-			"category" : "c2",
-			"groups" : "CountedLoopSafepoints",
-			"format": "-XX:LoopStripMiningIterShortLoop={}",
-			"min" : 50,
-			"max" : 150,
-			"step": ["linear", 25]
-		},
-		{
-			"type": "int",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:LoopPercentProfileLimit={}",
-			"min" : 15,
-			"max" : 45,
-			"step": ["linear", 5]
-		},
-		
-		{
-			"type": "int",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:LoopUnrollMin={}",
-			"min" : 2,
-			"max" : 6,
-			"step": ["linear", 1]
-		},
-		{
-			"type": "int",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:LoopMaxUnroll={}",
-			"min" : 8,
-			"max" : 24,
-			"step": ["linear", 4]
-		},
-		{
-			"type": "bool",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:-SuperWordReductions"
-		},
-		{
-			"type": "bool",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:-UseSuperWord"
-		},
-		{
-			"type": "bool",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:-LoopUnswitching"
-		},
-		{
-			"type": "int",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:MaxLabelRootDepth={}",
-			"min" : 550,
-			"max" : 1650,
-			"step": ["linear", 275]
-		},
-		{
-			"type": "int",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:MaxLoopPad={}",
-			"min" : 5,
-			"max" : 25,
-			"step": ["linear", 4]
-		},
-		{
-			"type": "int",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:NumberOfLoopInstrToAlign={}",
-			"min" : 2,
-			"max" : 6,
-			"step": ["linear", 1]
-		},
-		{
-			"type": "int",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:MaxNodeLimit={}",
-			"min" : 60000,
-			"max" : 100000,
-			"step": ["linear", 10000]
-		},
-		{
-			"type": "int",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:MaxVectorSize={}",
-			"min" : 8,
-			"max" : 32,
-			"step": ["power", 2]
-		},
-		
-		{
-			"type": "int",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:NodeLimitFudgeFactor={}",
-			"min" : 2000,
-			"max" : 4000,
-			"step": ["linear", 500],
-			"_comment": "index: 140"
-		},
-		{
-			"type": "bool",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:-OptimizeFill"
-		},
-		{
-			"type": "bool",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:-OptimizeStringConcat"
-		},
-		{
-			"type": "bool",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:-PartialPeelAtUnsignedTests"
-		},
-		{
-			"type": "bool",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:-PartialPeelLoop"
-		},
-		{
-			"type": "int",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:PartialPeelNewPhiDelta={}",
-			"min" : 0,
-			"max" : 2,
-			"step": ["linear", 1]
-		},
-		{
-			"type": "bool",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:-ReassociateInvariants"
-		},
-		{
-			"type": "bool",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:-ReduceBulkZeroing"
-		},
-		{
-			"type": "bool",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:-ReduceFieldZeroing"
-		},
-		{
-			"type": "bool",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:-ReduceInitialCardMarks"
-		},
-		
-		{
-			"type": "int",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:TrackedInitializationLimit={}",
-			"min" : 26,
-			"max" : 74,
-			"step": ["linear", 12]
-		},
-		{
-			"type": "bool",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:-SplitIfBlocks"
-		},
-		{
-			"type": "int",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:TypeProfileMajorReceiverPercent={}",
-			"min" : 60,
-			"max" : 100,
-			"step": ["linear", 10]
-		},
-		{
-			"type": "bool",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:+UseCMoveUnconditionally"
-		},
-		{
-			"type": "bool",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:-UseDivMod"
-		},
-		{
-			"type": "bool",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:+UseFPUForSpilling"
-		},
-		{
-			"type": "bool",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:-UseLoopPredicate"
-		},
-		{
-			"type": "bool",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:-UseProfiledLoopPredicate"
-		},
-		{
-			"type": "bool",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:-UseSubwordForMaxVector"
-		},
-		{
-			"type": "bool",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:-UseTypeSpeculation"
-		},
-		
-		{
-			"type": "bool",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:-UseVectorCmov",
-			"_comment": "index: 160"
-		},
-		{
-			"type": "int",
-			"category" : "c2",
-			"groups" : "",
-			"format": "-XX:ValueSearchLimit={}",
-			"min" : 500,
-			"max" : 1500,
-			"step": ["linear", 250]
-		},
-		{
-			"type": "control",
-			"category" : "runtime",
-			"groups" : "",
-			"variants" : [
+        },
+        {
+            "type": "int",
+            "category" : "c2",
+            "groups" : "CountedLoopSafepoints",
+            "format": "-XX:LoopStripMiningIter={}",
+            "min" : 500,
+            "max" : 1500,
+            "step": ["linear", 250]
+        },
+        {
+            "type": "int",
+            "category" : "c2",
+            "groups" : "CountedLoopSafepoints",
+            "format": "-XX:LoopStripMiningIterShortLoop={}",
+            "min" : 50,
+            "max" : 150,
+            "step": ["linear", 25]
+        },
+        {
+            "type": "int",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:LoopPercentProfileLimit={}",
+            "min" : 15,
+            "max" : 45,
+            "step": ["linear", 5]
+        },
+        
+        {
+            "type": "int",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:LoopUnrollMin={}",
+            "min" : 2,
+            "max" : 6,
+            "step": ["linear", 1]
+        },
+        {
+            "type": "int",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:LoopMaxUnroll={}",
+            "min" : 8,
+            "max" : 24,
+            "step": ["linear", 4]
+        },
+        {
+            "type": "bool",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:-SuperWordReductions"
+        },
+        {
+            "type": "bool",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:-UseSuperWord"
+        },
+        {
+            "type": "bool",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:-LoopUnswitching"
+        },
+        {
+            "type": "int",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:MaxLabelRootDepth={}",
+            "min" : 550,
+            "max" : 1650,
+            "step": ["linear", 275]
+        },
+        {
+            "type": "int",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:MaxLoopPad={}",
+            "min" : 5,
+            "max" : 25,
+            "step": ["linear", 4]
+        },
+        {
+            "type": "int",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:NumberOfLoopInstrToAlign={}",
+            "min" : 2,
+            "max" : 6,
+            "step": ["linear", 1]
+        },
+        {
+            "type": "int",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:MaxNodeLimit={}",
+            "min" : 60000,
+            "max" : 100000,
+            "step": ["linear", 10000]
+        },
+        {
+            "type": "int",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:MaxVectorSize={}",
+            "min" : 8,
+            "max" : 32,
+            "step": ["power", 2]
+        },
+        
+        {
+            "type": "int",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:NodeLimitFudgeFactor={}",
+            "min" : 2000,
+            "max" : 4000,
+            "step": ["linear", 500],
+            "_comment": "index: 140"
+        },
+        {
+            "type": "bool",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:-OptimizeFill"
+        },
+        {
+            "type": "bool",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:-OptimizeStringConcat"
+        },
+        {
+            "type": "bool",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:-PartialPeelAtUnsignedTests"
+        },
+        {
+            "type": "bool",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:-PartialPeelLoop"
+        },
+        {
+            "type": "int",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:PartialPeelNewPhiDelta={}",
+            "min" : 0,
+            "max" : 2,
+            "step": ["linear", 1]
+        },
+        {
+            "type": "bool",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:-ReassociateInvariants"
+        },
+        {
+            "type": "bool",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:-ReduceBulkZeroing"
+        },
+        {
+            "type": "bool",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:-ReduceFieldZeroing"
+        },
+        {
+            "type": "bool",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:-ReduceInitialCardMarks"
+        },
+        
+        {
+            "type": "int",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:TrackedInitializationLimit={}",
+            "min" : 26,
+            "max" : 74,
+            "step": ["linear", 12]
+        },
+        {
+            "type": "bool",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:-SplitIfBlocks"
+        },
+        {
+            "type": "int",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:TypeProfileMajorReceiverPercent={}",
+            "min" : 60,
+            "max" : 100,
+            "step": ["linear", 10]
+        },
+        {
+            "type": "bool",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:+UseCMoveUnconditionally"
+        },
+        {
+            "type": "bool",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:-UseDivMod"
+        },
+        {
+            "type": "bool",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:+UseFPUForSpilling"
+        },
+        {
+            "type": "bool",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:-UseLoopPredicate"
+        },
+        {
+            "type": "bool",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:-UseProfiledLoopPredicate"
+        },
+        {
+            "type": "bool",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:-UseSubwordForMaxVector"
+        },
+        {
+            "type": "bool",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:-UseTypeSpeculation"
+        },
+        
+        {
+            "type": "bool",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:-UseVectorCmov",
+            "_comment": "index: 160"
+        },
+        {
+            "type": "int",
+            "category" : "c2",
+            "groups" : "",
+            "format": "-XX:ValueSearchLimit={}",
+            "min" : 500,
+            "max" : 1500,
+            "step": ["linear", 250]
+        },
+        {
+            "type": "control",
+            "category" : "runtime",
+            "groups" : "",
+            "variants" : [
                 {
                     "format" : "-XX:AllocatePrefetchStyle=0",
-                    "deactivate": [163,164,165,166,167]
+                    "deactivate": ["AllocatePrefetchStyle>0"]
                 },
-				{
+                {
                     "format" : "-XX:AllocatePrefetchStyle=1",
                     "deactivate": []
                 },
-				{
+                {
                     "format" : "-XX:AllocatePrefetchStyle=2",
                     "deactivate": []
                 },
@@ -1440,1340 +1408,1335 @@
                     "deactivate": []
                 }
             ]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "AllocatePrefetchStyle>0",
-			"format": "-XX:AllocateInstancePrefetchLines={}",
-			"min" : 1,
-			"max" : 16,
-			"step": ["linear", 3]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "AllocatePrefetchStyle>0",
-			"format": "-XX:AllocatePrefetchDistance={}",
-			"min" : 16,
-			"max" : 512,
-			"step": ["power", 2]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "AllocatePrefetchStyle>0",
-			"format": "-XX:AllocatePrefetchInstr={}",
-			"min" : 0,
-			"max" : 3,
-			"step": ["linear", 1]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "AllocatePrefetchStyle>0",
-			"format": "-XX:AllocatePrefetchLines={}",
-			"min" : 1,
-			"max" : 16,
-			"step": ["linear", 3]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "AllocatePrefetchStyle>0",
-			"format": "-XX:AllocatePrefetchStepSize={}",
-			"min" : 8,
-			"max" : 64,
-			"step": ["power", 8]
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:+AllowParallelDefineClass"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:+AlwaysLockClassLoader"
-		},
-		
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:+AlwaysCompileLoopMethods"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:+AssertOnSuspendWaitFailure"
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:MaxBCEAEstimateLevel={}",
-			"min" : 1,
-			"max" : 11,
-			"step": ["linear", 2]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:MaxBCEAEstimateSize={}",
-			"min" : 30,
-			"max" : 270,
-			"step": ["linear", 30]
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:+CalculateClassFingerprint"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:+CheckJNICalls"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:-CriticalJNINatives"
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:MaxJNILocalCapacity={}",
-			"min" : 32768,
-			"max" : 98304,
-			"step": ["linear", 16384]
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:-UseFastJNIAccessors"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "",
-			"_comment" : "REMOVE"
-		},
-		
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:-UseSignalChaining",
-			"_comment": "index: 180"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:+AlwaysRestoreFPU"
-		},
-		{
-			"type": "control",
-			"category" : "runtime",
-			"groups" : "",
-			"variants" : [
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "AllocatePrefetchStyle>0",
+            "format": "-XX:AllocateInstancePrefetchLines={}",
+            "min" : 1,
+            "max" : 9,
+            "step": ["linear", 2]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "AllocatePrefetchStyle>0",
+            "format": "-XX:AllocatePrefetchDistance={}",
+            "min" : 16,
+            "max" : 512,
+            "step": ["power", 2]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "AllocatePrefetchStyle>0",
+            "format": "-XX:AllocatePrefetchInstr={}",
+            "min" : 0,
+            "max" : 3,
+            "step": ["linear", 1]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "AllocatePrefetchStyle>0",
+            "format": "-XX:AllocatePrefetchLines={}",
+            "min" : 1,
+            "max" : 9,
+            "step": ["linear", 2]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "AllocatePrefetchStyle>0",
+            "format": "-XX:AllocatePrefetchStepSize={}",
+            "min" : 8,
+            "max" : 64,
+            "step": ["power", 2]
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:+AllowParallelDefineClass"
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:+AlwaysLockClassLoader"
+        },
+        
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:+AlwaysCompileLoopMethods"
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:+AssertOnSuspendWaitFailure"
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:MaxBCEAEstimateLevel={}",
+            "min" : 1,
+            "max" : 11,
+            "step": ["linear", 2]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:MaxBCEAEstimateSize={}",
+            "min" : 30,
+            "max" : 270,
+            "step": ["linear", 30]
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:+CalculateClassFingerprint"
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:+CheckJNICalls"
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:-CriticalJNINatives"
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:MaxJNILocalCapacity={}",
+            "min" : 32768,
+            "max" : 98304,
+            "step": ["linear", 16384]
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:-UseFastJNIAccessors"
+        },
+        
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:-UseSignalChaining",
+            "_comment": "index: 180"
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:+AlwaysRestoreFPU"
+        },
+        {
+            "type": "control",
+            "category" : "runtime",
+            "groups" : "",
+            "variants" : [
                 {
                     "format" : "",
                     "deactivate": []
                 },
                 {
-                    "format" : "-XX:-UseCompiler",
-                    "deactivate": [183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,220,221]
+                    "format" : "",
+                    "deactivate": []
                 }
-            ]
-		},
-		{
-			"type": "control",
-			"category" : "runtime",
-			"groups" : "Compiler",
-			"variants" : [
+            ],
+			"_comment": "__UNREMOVE"
+        },
+        {
+            "type": "control",
+            "category" : "runtime",
+            "groups" : "Compiler",
+            "variants" : [
                 {
                     "format" : "-XX:CompilationMode=default",
-                    "deactivate": [185,189]
+                    "deactivate": ["NonTiered"]
                 },
-				{
+                {
                     "format" : "-XX:CompilationMode=quick-only",
-                    "deactivate": [186,188,190,191,192,193,194,195,196,197,198,199]
+                    "deactivate": ["Tiered"]
                 },
                 {
                     "format" : "-XX:CompilationMode=high-only",
-                    "deactivate": [186,188,190,191,192,193,194,195,196,197,198,199]
+                    "deactivate": ["Tiered"]
                 },
                 {
                     "format" : "-XX:CompilationMode=high-only-quick-internal",
-                    "deactivate": [185,188,190,191,192,193,194,195,196,197,198,199]
+                    "deactivate": ["NonTiered"]
                 }
             ]
-		},
-		{
-			"type": "control",
-			"category" : "runtime",
-			"groups" : "Compiler",
-			"variants" : [
+        },
+        {
+            "type": "control",
+            "category" : "runtime",
+            "groups" : "Compiler",
+            "variants" : [
                 {
                     "format" : "-XX:+CICompilerCountPerCPU",
-                    "deactivate": [185,186]
+                    "deactivate": ["CICompilerCount"]
                 },
-				{
+                {
                     "format" : "-XX:-CICompilerCountPerCPU",
                     "deactivate": []
                 }
             ]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "Compiler:NonTiered+CICompilerCount",
-			"format": "-XX:CICompilerCount={}",
-			"min" : 1,
-			"max" : 12,
-			"step": ["linear", 1],
-			"_comment": "For quick-only/high-only"
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "Compiler:Tiered+CICompilerCount",
-			"format": "-XX:CICompilerCount={}",
-			"min" : 2,
-			"max" : 12,
-			"step": ["linear", 1],
-			"_comment": "For default/high-only-quick-internal"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "Compiler",
-			"format": "-XX:-UseDynamicNumberOfCompilerThreads"
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "Compiler:Tiered",
-			"format": "-XX:IncreaseFirstTierCompileThresholdAt={}",
-			"min" : 20,
-			"max" : 80,
-			"step": ["linear", 5]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "Compiler:NonTiered",
-			"format": "-XX:InterpreterProfilePercentage={}",
-			"min" : 9,
-			"max" : 57,
-			"step": ["linear", 6]
-		},
-		
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "Compiler:Tiered",
-			"format": "-XX:Tier0BackedgeNotifyFreqLog={}",
-			"min" : 0,
-			"max" : 30,
-			"step": ["linear", 5]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "Compiler:Tiered",
-			"format": "-XX:Tier0InvokeNotifyFreqLog={}",
-			"min" : 0,
-			"max" : 30,
-			"step": ["linear", 5]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "Compiler:Tiered",
-			"format": "-XX:Tier0ProfilingStartPercentage={}",
-			"min" : 50,
-			"max" : 350,
-			"step": ["linear", 25]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "Compiler:Tiered",
-			"format": "-XX:Tier23InlineeNotifyFreqLog={}",
-			"min" : 0,
-			"max" : 30,
-			"step": ["linear", 5]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "Compiler:Tiered",
-			"format": "-XX:Tier2BackedgeNotifyFreqLog={}",
-			"min" : 0,
-			"max" : 30,
-			"step": ["linear", 5]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "Compiler:Tiered",
-			"format": "-XX:Tier2BackEdgeThreshold={}",
-			"min" : 10,
-			"max" : 1000000,
-			"step": ["power", 10]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "Compiler:Tiered",
-			"format": "-XX:Tier2CompileThreshold={}",
-			"min" : 10,
-			"max" : 1000000,
-			"step": ["power", 10]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "Compiler:Tiered",
-			"format": "-XX:Tier2InvokeNotifyFreqLog={}",
-			"min" : 0,
-			"max" : 30,
-			"step": ["linear", 5]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "Compiler:Tiered",
-			"format": "-XX:Tier3AOTBackEdgeThreshold={}",
-			"min" : 10,
-			"max" : 1000000,
-			"step": ["power", 10]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "Compiler:Tiered",
-			"format": "-XX:Tier3AOTCompileThreshold={}",
-			"min" : 10,
-			"max" : 1000000,
-			"step": ["power", 10]
-		},
-		
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "Compiler:Tiered",
-			"format": "-XX:Tier3AOTInvocationThreshold={}",
-			"min" : 10,
-			"max" : 1000000,
-			"step": ["power", 10],
-			"_comment": "index: 200"
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "Compiler:Tiered",
-			"format": "-XX:Tier3AOTMinInvocationThreshold={}",
-			"min" : 10,
-			"max" : 1000000,
-			"step": ["power", 10]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "Compiler:Tiered",
-			"format": "-XX:Tier3BackedgeNotifyFreqLog={}",
-			"min" : 0,
-			"max" : 30,
-			"step": ["linear", 5]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "Compiler:Tiered",
-			"format": "-XX:Tier3BackEdgeThreshold={}",
-			"min" : 10,
-			"max" : 1000000,
-			"step": ["power", 10]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "Compiler:Tiered",
-			"format": "-XX:Tier3CompileThreshold={}",
-			"min" : 10,
-			"max" : 1000000,
-			"step": ["power", 10]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "Compiler:Tiered",
-			"format": "-XX:Tier3DelayOff={}",
-			"min" : 0,
-			"max" : 5,
-			"step": ["linear", 1]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "Compiler:Tiered",
-			"format": "-XX:Tier3DelayOn={}",
-			"min" : 2,
-			"max" : 6,
-			"step": ["linear", 1]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "Compiler:Tiered",
-			"format": "-XX:Tier3InvocationThreshold={}",
-			"min" : 10,
-			"max" : 1000000,
-			"step": ["power", 10]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "Compiler:Tiered",
-			"format": "-XX:Tier3InvokeNotifyFreqLog={}",
-			"min" : 0,
-			"max" : 30,
-			"step": ["linear", 5]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "Compiler:Tiered",
-			"format": "-XX:Tier3LoadFeedback={}",
-			"min" : 2,
-			"max" : 6,
-			"step": ["linear", 1]
-		},
-		
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "Compiler:Tiered",
-			"format": "-XX:Tier3MinInvocationThreshold={}",
-			"min" : 10,
-			"max" : 1000000,
-			"step": ["power", 10]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "Compiler:Tiered",
-			"format": "-XX:Tier4BackEdgeThreshold={}",
-			"min" : 10,
-			"max" : 1000000,
-			"step": ["power", 10]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "Compiler:Tiered",
-			"format": "-XX:Tier4CompileThreshold={}",
-			"min" : 10,
-			"max" : 1000000,
-			"step": ["power", 10]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "Compiler:Tiered",
-			"format": "-XX:Tier4InvocationThreshold={}",
-			"min" : 10,
-			"max" : 1000000,
-			"step": ["power", 10]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "Compiler:Tiered",
-			"format": "-XX:Tier4LoadFeedback={}",
-			"min" : 2,
-			"max" : 12,
-			"step": ["linear", 1]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "Compiler:Tiered",
-			"format": "-XX:Tier4MinInvocationThreshold={}",
-			"min" : 10,
-			"max" : 1000000,
-			"step": ["power", 10]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "Compiler:Tiered",
-			"format": "-XX:TieredCompileTaskTimeout={}",
-			"min" : 20,
-			"max" : 70,
-			"step": ["linear", 5]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "Compiler:Tiered",
-			"format": "-XX:TieredRateUpdateMaxTime={}",
-			"min" : 20,
-			"max" : 30,
-			"step": ["linear", 2]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "Compiler:Tiered",
-			"format": "-XX:TieredRateUpdateMinTime={}",
-			"min" : 0,
-			"max" : 10,
-			"step": ["linear", 2]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "Compiler:Tiered",
-			"format": "-XX:TieredStopAtLevel={}",
-			"min" : 1,
-			"max" : 4,
-			"step": ["linear", 1]
-		},
-		
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "Compiler",
-			"format": "-XX:-UseInterpreter",
-			"_comment": "index: 220"
-		},
-		{
-			"type": "double",
-			"category" : "runtime",
-			"groups" : "Compiler",
-			"format": "-XX:CompileThresholdScaling={}",
-			"min" : 0.5,
-			"max" : 16.0,
-			"step": ["power", 2]
-		},
-		{
-			"type": "control",
-			"category" : "runtime",
-			"groups" : "",
-			"variants" : [
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "Compiler:NonTiered+CICompilerCount",
+            "format": "-XX:CICompilerCount={}",
+            "min" : 1,
+            "max" : 12,
+            "step": ["linear", 1],
+            "_comment": "For quick-only/high-only"
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "Compiler:Tiered+CICompilerCount",
+            "format": "-XX:CICompilerCount={}",
+            "min" : 2,
+            "max" : 12,
+            "step": ["linear", 1],
+            "_comment": "For default/high-only-quick-internal"
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "Compiler",
+            "format": "-XX:-UseDynamicNumberOfCompilerThreads"
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "Compiler:Tiered",
+            "format": "-XX:IncreaseFirstTierCompileThresholdAt={}",
+            "min" : 20,
+            "max" : 80,
+            "step": ["linear", 5]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "Compiler:NonTiered",
+            "format": "-XX:InterpreterProfilePercentage={}",
+            "min" : 9,
+            "max" : 57,
+            "step": ["linear", 6]
+        },
+        
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "Compiler:Tiered",
+            "format": "-XX:Tier0BackedgeNotifyFreqLog={}",
+            "min" : 0,
+            "max" : 30,
+            "step": ["linear", 5]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "Compiler:Tiered",
+            "format": "-XX:Tier0InvokeNotifyFreqLog={}",
+            "min" : 0,
+            "max" : 30,
+            "step": ["linear", 5]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "Compiler:Tiered",
+            "format": "-XX:Tier0ProfilingStartPercentage={}",
+            "min" : 50,
+            "max" : 350,
+            "step": ["linear", 25]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "Compiler:Tiered",
+            "format": "-XX:Tier23InlineeNotifyFreqLog={}",
+            "min" : 0,
+            "max" : 30,
+            "step": ["linear", 5]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "Compiler:Tiered",
+            "format": "-XX:Tier2BackedgeNotifyFreqLog={}",
+            "min" : 0,
+            "max" : 30,
+            "step": ["linear", 5]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "Compiler:Tiered",
+            "format": "-XX:Tier2BackEdgeThreshold={}",
+            "min" : 10,
+            "max" : 1000000,
+            "step": ["power", 10]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "Compiler:Tiered",
+            "format": "-XX:Tier2CompileThreshold={}",
+            "min" : 10,
+            "max" : 1000000,
+            "step": ["power", 10]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "Compiler:Tiered",
+            "format": "-XX:Tier2InvokeNotifyFreqLog={}",
+            "min" : 0,
+            "max" : 30,
+            "step": ["linear", 5]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "Compiler:Tiered",
+            "format": "-XX:Tier3AOTBackEdgeThreshold={}",
+            "min" : 10,
+            "max" : 1000000,
+            "step": ["power", 10]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "Compiler:Tiered",
+            "format": "-XX:Tier3AOTCompileThreshold={}",
+            "min" : 10,
+            "max" : 1000000,
+            "step": ["power", 10]
+        },
+        
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "Compiler:Tiered",
+            "format": "-XX:Tier3AOTInvocationThreshold={}",
+            "min" : 10,
+            "max" : 1000000,
+            "step": ["power", 10],
+            "_comment": "index: 200"
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "Compiler:Tiered",
+            "format": "-XX:Tier3AOTMinInvocationThreshold={}",
+            "min" : 10,
+            "max" : 1000000,
+            "step": ["power", 10]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "Compiler:Tiered",
+            "format": "-XX:Tier3BackedgeNotifyFreqLog={}",
+            "min" : 0,
+            "max" : 30,
+            "step": ["linear", 5]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "Compiler:Tiered",
+            "format": "-XX:Tier3BackEdgeThreshold={}",
+            "min" : 10,
+            "max" : 1000000,
+            "step": ["power", 10]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "Compiler:Tiered",
+            "format": "-XX:Tier3CompileThreshold={}",
+            "min" : 10,
+            "max" : 1000000,
+            "step": ["power", 10]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "Compiler:Tiered",
+            "format": "-XX:Tier3DelayOff={}",
+            "min" : 0,
+            "max" : 5,
+            "step": ["linear", 1]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "Compiler:Tiered",
+            "format": "-XX:Tier3DelayOn={}",
+            "min" : 2,
+            "max" : 6,
+            "step": ["linear", 1]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "Compiler:Tiered",
+            "format": "-XX:Tier3InvocationThreshold={}",
+            "min" : 10,
+            "max" : 1000000,
+            "step": ["power", 10]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "Compiler:Tiered",
+            "format": "-XX:Tier3InvokeNotifyFreqLog={}",
+            "min" : 0,
+            "max" : 30,
+            "step": ["linear", 5]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "Compiler:Tiered",
+            "format": "-XX:Tier3LoadFeedback={}",
+            "min" : 2,
+            "max" : 6,
+            "step": ["linear", 1]
+        },
+        
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "Compiler:Tiered",
+            "format": "-XX:Tier3MinInvocationThreshold={}",
+            "min" : 10,
+            "max" : 1000000,
+            "step": ["power", 10]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "Compiler:Tiered",
+            "format": "-XX:Tier4BackEdgeThreshold={}",
+            "min" : 10,
+            "max" : 1000000,
+            "step": ["power", 10]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "Compiler:Tiered",
+            "format": "-XX:Tier4CompileThreshold={}",
+            "min" : 10,
+            "max" : 1000000,
+            "step": ["power", 10]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "Compiler:Tiered",
+            "format": "-XX:Tier4InvocationThreshold={}",
+            "min" : 10,
+            "max" : 1000000,
+            "step": ["power", 10]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "Compiler:Tiered",
+            "format": "-XX:Tier4LoadFeedback={}",
+            "min" : 2,
+            "max" : 12,
+            "step": ["linear", 1]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "Compiler:Tiered",
+            "format": "-XX:Tier4MinInvocationThreshold={}",
+            "min" : 10,
+            "max" : 1000000,
+            "step": ["power", 10]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "Compiler:Tiered",
+            "format": "-XX:TieredCompileTaskTimeout={}",
+            "min" : 20,
+            "max" : 70,
+            "step": ["linear", 5]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "Compiler:Tiered",
+            "format": "-XX:TieredRateUpdateMaxTime={}",
+            "min" : 20,
+            "max" : 30,
+            "step": ["linear", 2]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "Compiler:Tiered",
+            "format": "-XX:TieredRateUpdateMinTime={}",
+            "min" : 0,
+            "max" : 10,
+            "step": ["linear", 2]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "Compiler:Tiered",
+            "format": "-XX:TieredStopAtLevel={}",
+            "min" : 4,
+            "max" : 4,
+            "step": ["linear", 1]
+        },
+        
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "Compiler",
+            "format": "-XX:-UseInterpreter",
+            "_comment": "index: 220"
+        },
+        {
+            "type": "double",
+            "category" : "runtime",
+            "groups" : "Compiler",
+            "format": "-XX:CompileThresholdScaling={}",
+            "min" : 0.5,
+            "max" : 16.0,
+            "step": ["power", 2]
+        },
+        {
+            "type": "control",
+            "category" : "runtime",
+            "groups" : "",
+            "variants" : [
                 {
                     "format" : "",
                     "deactivate": []
                 },
-				{
+                {
                     "format" : "-XX:-ClassUnloading",
-                    "deactivate": [223]
+                    "deactivate": ["ClassUnloading"]
                 }
             ]
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "ClassUnloading",
-			"format": "-XX:-ClassUnloadingWithConcurrentMark"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:-ClipInlining"
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:CompressedClassSpaceSize={}M",
-			"min" : 128,
-			"max" : 2048,
-			"step": ["power", 2]
-		},
-		{
-			"type": "control",
-			"category" : "runtime",
-			"groups" : "",
-			"variants" : [
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "ClassUnloading",
+            "format": "-XX:-ClassUnloadingWithConcurrentMark"
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:-ClipInlining"
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:CompressedClassSpaceSize={}M",
+            "min" : 128,
+            "max" : 2048,
+            "step": ["power", 2]
+        },
+        {
+            "type": "control",
+            "category" : "runtime",
+            "groups" : "",
+            "variants" : [
                 {
                     "format" : "",
                     "deactivate": []
                 },
-				{
+                {
                     "format" : "-XX:-EnableContended",
-                    "deactivate": [227,228]
+                    "deactivate": ["EnableContended"]
                 }
             ]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "EnableContended",
-			"format": "-XX:ContendedPaddingWidth={}",
-			"min" : 32,
-			"max" : 1024,
-			"step": ["power", 2]
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "EnableContended",
-			"format": "-XX:-RestrictContended"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:+DisableAttachMechanism"
-		},
-		
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:+EagerXrunInit"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:-EnableDynamicAgentLoading"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:-DontCompileHugeMethods"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:-EstimateArgEscape"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:-FilterSpuriousWakeups"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:+ForceTimeHighResolution"
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:HeapSearchSteps={}",
-			"min" : 1,
-			"max" : 9,
-			"step": ["linear", 2]
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:+IgnoreEmptyClassPaths"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:-Inline"
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:HeapSearchSteps={}",
-			"min" : 1,
-			"max" : 9,
-			"step": ["linear", 2]
-		},
-		
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:LargePageHeapSizeThreshold={}M",
-			"min" : 8,
-			"max" : 2048,
-			"step": ["power", 2],
-			"_comment": "index: 240"
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:MaxDirectMemorySize={}K",
-			"min" : 1,
-			"max" : 1048576,
-			"step": ["power", 32]
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:-MaxFDLimit"
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:MaxMetaspaceExpansion={}K",
-			"min" : 1024,
-			"max" : 16384,
-			"step": ["power", 2]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:MaxMetaspaceFreeRatio={}",
-			"min" : 55,
-			"max" : 85,
-			"step": ["linear", 5]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:MaxMetaspaceSize={}G",
-			"min" : 1,
-			"max" : 1073741824,
-			"step": ["power", 1024]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:MinMetaspaceExpansion={}K",
-			"min" : 64,
-			"max" : 1024,
-			"step": ["power", 2]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:MinMetaspaceFreeRatio={}",
-			"min" : 25,
-			"max" : 55,
-			"step": ["linear", 5]
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:-MethodFlushing"
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:MinHeapDeltaBytes={}K",
-			"min" : 16,
-			"max" : 1024,
-			"step": ["power", 2]
-		},
-		
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:MinInliningThreshold={}",
-			"min" : 50,
-			"max" : 500,
-			"step": ["linear", 25]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:MinInliningThreshold={}",
-			"min" : 50,
-			"max" : 500,
-			"step": ["linear", 25]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:NmethodSweepActivity={}",
-			"min" : 1,
-			"max" : 1000,
-			"step": ["power", 10]
-		},
-		{
-			"type": "control",
-			"category" : "runtime",
-			"groups" : "",
-			"variants" : [
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "EnableContended",
+            "format": "-XX:ContendedPaddingWidth={}",
+            "min" : 32,
+            "max" : 1024,
+            "step": ["power", 2]
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "EnableContended",
+            "format": "-XX:-RestrictContended"
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:+DisableAttachMechanism"
+        },
+        
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:+EagerXrunInit"
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:-EnableDynamicAgentLoading"
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:-DontCompileHugeMethods"
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:-EstimateArgEscape"
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:-FilterSpuriousWakeups"
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:+ForceTimeHighResolution"
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:HeapSearchSteps={}",
+            "min" : 1,
+            "max" : 9,
+            "step": ["linear", 2]
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:+IgnoreEmptyClassPaths"
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:-Inline"
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:HeapSearchSteps={}",
+            "min" : 1,
+            "max" : 9,
+            "step": ["linear", 2]
+        },
+        
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:LargePageHeapSizeThreshold={}M",
+            "min" : 8,
+            "max" : 2048,
+            "step": ["power", 2],
+            "_comment": "index: 240"
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:MaxDirectMemorySize={}K",
+            "min" : 1,
+            "max" : 1048576,
+            "step": ["power", 32]
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:-MaxFDLimit"
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:MaxMetaspaceExpansion={}K",
+            "min" : 1024,
+            "max" : 16384,
+            "step": ["power", 2]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:MaxMetaspaceFreeRatio={}",
+            "min" : 55,
+            "max" : 85,
+            "step": ["linear", 5]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:MaxMetaspaceSize={}G",
+            "min" : 1,
+            "max" : 1073741824,
+            "step": ["power", 1024]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:MinMetaspaceExpansion={}K",
+            "min" : 64,
+            "max" : 1024,
+            "step": ["power", 2]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:MinMetaspaceFreeRatio={}",
+            "min" : 25,
+            "max" : 55,
+            "step": ["linear", 5]
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:-MethodFlushing"
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:MinHeapDeltaBytes={}K",
+            "min" : 16,
+            "max" : 1024,
+            "step": ["power", 2]
+        },
+        
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:MinInliningThreshold={}",
+            "min" : 50,
+            "max" : 500,
+            "step": ["linear", 25]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:MinInliningThreshold={}",
+            "min" : 50,
+            "max" : 500,
+            "step": ["linear", 25]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:NmethodSweepActivity={}",
+            "min" : 1,
+            "max" : 1000,
+            "step": ["power", 10]
+        },
+        {
+            "type": "control",
+            "category" : "runtime",
+            "groups" : "",
+            "variants" : [
                 {
                     "format" : "-XX:+UseNUMA",
                     "deactivate": []
                 },
-				{
+                {
                     "format" : "",
-                    "deactivate": [254,255,256,257,258,259]
+                    "deactivate": ["NUMA"]
                 }
             ]
-		},
-		{
-			"type": "control",
-			"category" : "runtime",
-			"groups" : "NUMA",
-			"variants" : [
+        },
+        {
+            "type": "control",
+            "category" : "runtime",
+            "groups" : "NUMA",
+            "variants" : [
                 {
                     "format" : "-XX:+UseNUMAInterleaving",
                     "deactivate": []
                 },
-				{
+                {
                     "format" : "",
-                    "deactivate": [255]
+                    "deactivate": ["Interleaving"]
                 }
             ]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "NUMA:Interleaving",
-			"format": "-XX:NUMAInterleaveGranularity={}K",
-			"min" : 256,
-			"max" : 16384,
-			"step": ["power", 2]
-		},
-		{
-			"type": "control",
-			"category" : "runtime",
-			"groups" : "NUMA",
-			"variants" : [
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "NUMA:Interleaving",
+            "format": "-XX:NUMAInterleaveGranularity={}K",
+            "min" : 256,
+            "max" : 16384,
+            "step": ["power", 2]
+        },
+        {
+            "type": "control",
+            "category" : "runtime",
+            "groups" : "NUMA",
+            "variants" : [
                 {
                     "format" : "-XX:-UseAdaptiveNUMAChunkSizing",
-                    "deactivate": [257]
+                    "deactivate": ["AdaptiveChunkSizing"]
                 },
-				{
+                {
                     "format" : "",
                     "deactivate": []
                 }
             ]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "NUMA:AdaptiveChunkSizing",
-			"format": "-XX:NUMAChunkResizeWeight={}",
-			"min" : 0,
-			"max" : 40,
-			"step": ["linear", 5]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "NUMA",
-			"format": "-XX:NUMAPageScanRate={}",
-			"min" : 32,
-			"max" : 2048,
-			"step": ["power", 2]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "NUMA",
-			"format": "-XX:NUMASpaceResizeRate={}M",
-			"min" :	128,
-			"max" : 8192,
-			"step": ["power", 2]
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "NUMA:AdaptiveChunkSizing",
+            "format": "-XX:NUMAChunkResizeWeight={}",
+            "min" : 0,
+            "max" : 40,
+            "step": ["linear", 5]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "NUMA",
+            "format": "-XX:NUMAPageScanRate={}",
+            "min" : 32,
+            "max" : 2048,
+            "step": ["power", 2]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "NUMA",
+            "format": "-XX:NUMASpaceResizeRate={}M",
+            "min" :    128,
+            "max" : 8192,
+            "step": ["power", 2]
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:-OmitStackTraceInFastThrow"
+        },
+        
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:PerBytecodeRecompilationCutoff={}",
+            "min" : 0,
+            "max" : 400,
+            "step": ["linear", 25],
+            "_comment": "index: 260"
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:PerBytecodeTrapLimit={}",
+            "min" : 0,
+            "max" : 8,
+            "step": ["linear", 1]
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:+PerfAllowAtExitRegistration"
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
 			"groups" : "",
-			"format": "-XX:-OmitStackTraceInFastThrow"
-		},
-		
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:PerBytecodeRecompilationCutoff={}",
-			"min" : 0,
-			"max" : 400,
-			"step": ["linear", 25],
-			"_comment": "index: 260"
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:PerBytecodeTrapLimit={}",
-			"min" : 0,
-			"max" : 8,
-			"step": ["linear", 1]
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:+PerfAllowAtExitRegistration"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"format": "-XX:+PerfBypassFileSystemCheck"
-		},
-		{
-			"type": "control",
-			"category" : "runtime",
-			"groups" : "",
-			"variants" : [
+            "format": "-XX:+PerfBypassFileSystemCheck"
+        },
+        {
+            "type": "control",
+            "category" : "runtime",
+            "groups" : "",
+            "variants" : [
                 {
                     "format" : "-XX:-UsePerfData",
-                    "deactivate": [265,266,267,268]
+                    "deactivate": ["PerfData"]
                 },
-				{
+                {
                     "format" : "",
                     "deactivate": []
                 }
             ]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "PerfData",
-			"format": "-XX:PerfDataMemorySize={}K",
-			"min" : 2,
-			"max" : 512,
-			"step": ["power", 2]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "PerfData",
-			"format": "-XX:PerfDataSamplingInterval={}",
-			"min" : 10,
-			"max" : 90,
-			"step": ["linear", 10]
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "PerfData",
-			"format": "-XX:+PerfDisableSharedMem"
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "PerfData",
-			"format": "-XX:PerfMaxStringConstLength={}",
-			"min" : 128,
-			"max" : 8192,
-			"step": ["power", 2]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:PerMethodRecompilationCutoff={}",
-			"min" : 50,
-			"max" : 750,
-			"step": ["linear", 50]
-		},
-		
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:PerMethodTrapLimit={}",
-			"min" : 20,
-			"max" : 180,
-			"step": ["linear", 20]
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:+PreserveAllAnnotations"
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:ProcessDistributionStride={}",
-			"min" : 0,
-			"max" : 8,
-			"step": ["linear", 1]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:ProfileMaturityPercentage={}",
-			"min" : 5,
-			"max" : 40,
-			"step": ["linear", 5]
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:-RangeCheckElimination"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:+ReduceSignalUsage"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:-RegisterFinalizersAtInit"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:+RelaxAccessControlCheck"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:-UseSharedSpaces"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:+RequireSharedSpaces"
-		},
-		
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:+VerifySharedSpaces",
-			"_comment": "index: 280"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:+RestoreMXCSROnJNICalls"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:-RestrictReservedStack"
-		},
-		{
-			"type": "control",
-			"category" : "runtime",
-			"groups" : "",
-			"variants" : [
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "PerfData",
+            "format": "-XX:PerfDataMemorySize={}K",
+            "min" : 2,
+            "max" : 512,
+            "step": ["power", 2]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "PerfData",
+            "format": "-XX:PerfDataSamplingInterval={}",
+            "min" : 10,
+            "max" : 90,
+            "step": ["linear", 10]
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "PerfData",
+            "format": "-XX:+PerfDisableSharedMem"
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "PerfData",
+            "format": "-XX:PerfMaxStringConstLength={}",
+            "min" : 128,
+            "max" : 8192,
+            "step": ["power", 2]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:PerMethodRecompilationCutoff={}",
+            "min" : 50,
+            "max" : 750,
+            "step": ["linear", 50]
+        },
+        
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:PerMethodTrapLimit={}",
+            "min" : 20,
+            "max" : 180,
+            "step": ["linear", 20]
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:+PreserveAllAnnotations"
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:ProcessDistributionStride={}",
+            "min" : 0,
+            "max" : 8,
+            "step": ["linear", 1]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:ProfileMaturityPercentage={}",
+            "min" : 5,
+            "max" : 40,
+            "step": ["linear", 5]
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:-RangeCheckElimination"
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:+ReduceSignalUsage"
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:-RegisterFinalizersAtInit"
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:+RelaxAccessControlCheck"
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:-UseSharedSpaces"
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:+RequireSharedSpaces"
+        },
+        
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:+VerifySharedSpaces",
+            "_comment": "index: 280"
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:+RestoreMXCSROnJNICalls"
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:-RestrictReservedStack"
+        },
+        {
+            "type": "control",
+            "category" : "runtime",
+            "groups" : "",
+            "variants" : [
                 {
                     "format" : "-XX:+SafepointTimeout",
                     "deactivate": []
                 },
-				{
+                {
                     "format" : "",
-                    "deactivate": [284]
+                    "deactivate": ["SafepointTimeout"]
                 }
             ]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "SafepointTimeout",
-			"format": "-XX:SafepointTimeoutDelay={}",
-			"min" : 5000,
-			"max" : 15000,
-			"step": ["linear", 1000]
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:+SegmentedCodeCache"
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:SharedSymbolTableBucketSize={}",
-			"min" : 2,
-			"max" : 64,
-			"step": ["power", 2]
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:-ShrinkHeapInSteps"
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:SoftRefLRUPolicyMSPerMB={}",
-			"min" : 200,
-			"max" : 1800,
-			"step": ["linear", 200]
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:-StackTraceInThrowable"
-		},
-		
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:StartAggressiveSweepingAt={}",
-			"min" : 0,
-			"max" : 30,
-			"step": ["linear", 5]
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:+StartAttachListener"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:+StressLdcRewrite"
-		},
-		{
-			"type": "control",
-			"category" : "runtime",
-			"groups" : "",
-			"variants" : [
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "SafepointTimeout",
+            "format": "-XX:SafepointTimeoutDelay={}",
+            "min" : 5000,
+            "max" : 15000,
+            "step": ["linear", 1000]
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:+SegmentedCodeCache"
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:SharedSymbolTableBucketSize={}",
+            "min" : 2,
+            "max" : 64,
+            "step": ["power", 2]
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:-ShrinkHeapInSteps"
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:SoftRefLRUPolicyMSPerMB={}",
+            "min" : 200,
+            "max" : 1800,
+            "step": ["linear", 200]
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:-StackTraceInThrowable"
+        },
+        
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:StartAggressiveSweepingAt={}",
+            "min" : 0,
+            "max" : 30,
+            "step": ["linear", 5]
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:+StartAttachListener"
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:+StressLdcRewrite"
+        },
+        {
+            "type": "control",
+            "category" : "runtime",
+            "groups" : "",
+            "variants" : [
                 {
                     "format" : "-XX:+UseStringDeduplication",
                     "deactivate": []
                 },
-				{
+                {
                     "format" : "",
-                    "deactivate": [294]
+                    "deactivate": ["StringDeduplication"]
                 }
             ]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "StringDeduplication",
-			"format": "-XX:StringDeduplicationAgeThreshold={}",
-			"min" : 1,
-			"max" : 5,
-			"step": ["linear", 1]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:StringTableSize={}",
-			"min" : 8192,
-			"max" : 524288,
-			"step": ["power", 2]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:SuspendRetryCount={}",
-			"min" : 20,
-			"max" : 80,
-			"step": ["linear", 10]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:SuspendRetryDelay={}",
-			"min" : 2,
-			"max" : 8,
-			"step": ["linear", 1]
-		},
-		{
-			"type": "double",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:SweeperThreshold={}",
-			"min" : 0.1,
-			"max" : 0.9,
-			"step": ["linear", 0.2]
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:+TraceSuspendWaitFailures"
-		},
-		
-		{
-			"type": "control",
-			"category" : "runtime",
-			"groups" : "",
-			"variants" : [
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "StringDeduplication",
+            "format": "-XX:StringDeduplicationAgeThreshold={}",
+            "min" : 1,
+            "max" : 5,
+            "step": ["linear", 1]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:StringTableSize={}",
+            "min" : 8192,
+            "max" : 524288,
+            "step": ["power", 2]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:SuspendRetryCount={}",
+            "min" : 20,
+            "max" : 80,
+            "step": ["linear", 10]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:SuspendRetryDelay={}",
+            "min" : 2,
+            "max" : 8,
+            "step": ["linear", 1]
+        },
+        {
+            "type": "double",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:SweeperThreshold={}",
+            "min" : 0.1,
+            "max" : 0.9,
+            "step": ["linear", 0.2]
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:+TraceSuspendWaitFailures"
+        },
+        
+        {
+            "type": "control",
+            "category" : "runtime",
+            "groups" : "",
+            "variants" : [
                 {
                     "format" : "",
                     "deactivate": []
                 },
-				{
+                {
                     "format" : "-XX:-UseTypeProfile",
-                    "deactivate": [301,302,303]
+                    "deactivate": ["TypeProfile"]
                 }
             ],
-			"_comment": "index: 300"
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "TypeProfile",
-			"format": "-XX:TypeProfileArgsLimit={}",
-			"min" : 1,
-			"max" : 16,
-			"step": ["linear", 3]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "TypeProfile",
-			"format": "-XX:TypeProfileParmsLimit={}",
-			"min" : 1,
-			"max" : 64,
-			"step": ["power", 2]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "TypeProfile",
-			"format": "-XX:TypeProfileWidth={}",
-			"min" : 0,
-			"max" : 8,
-			"step": ["linear", 1]
-		},
-		{
-			"type": "int",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:UnguardOnExecutionViolation={}",
-			"min" : 0,
-			"max" : 2,
-			"step": ["linear", 1]
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:+UseAES"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:+UseBASE64Intrinsics"
-		},
-				
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:-UseCodeAging"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:-UseCodeCacheFlushing"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:-UseCounterDecay"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:-UseEmptySlotsInSupers"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:+UseFMA"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:+UseHeavyMonitors"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:-UseInlineCaches"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:-UseLoopCounter"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:-UseNotificationThread"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:+UsePopCountInstruction"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:+UseSHA"
-		},
-		{
-			"type": "bool",
-			"category" : "runtime",
-			"groups" : "",
-			"format": "-XX:+UseXMMForArrayCopy"
-		}
+            "_comment": "index: 300"
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "TypeProfile",
+            "format": "-XX:TypeProfileArgsLimit={}",
+            "min" : 1,
+            "max" : 16,
+            "step": ["linear", 3]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "TypeProfile",
+            "format": "-XX:TypeProfileParmsLimit={}",
+            "min" : 1,
+            "max" : 64,
+            "step": ["power", 2]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "TypeProfile",
+            "format": "-XX:TypeProfileWidth={}",
+            "min" : 0,
+            "max" : 8,
+            "step": ["linear", 1]
+        },
+        {
+            "type": "int",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:UnguardOnExecutionViolation={}",
+            "min" : 0,
+            "max" : 2,
+            "step": ["linear", 1]
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:+UseAES"
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:+UseBASE64Intrinsics"
+        },
+                
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:-UseCodeAging"
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:-UseCodeCacheFlushing"
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:-UseCounterDecay"
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:-UseEmptySlotsInSupers"
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:+UseFMA"
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:+UseHeavyMonitors"
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:-UseInlineCaches"
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:-UseLoopCounter"
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:-UseNotificationThread"
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:+UsePopCountInstruction"
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:+UseSHA"
+        },
+        {
+            "type": "bool",
+            "category" : "runtime",
+            "groups" : "",
+            "format": "-XX:+UseXMMForArrayCopy"
+        }
     ]
 }
