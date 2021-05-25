@@ -2,7 +2,7 @@ import json, random
 
 
 MAX_FITNESS = 999999
-MUTATION_CHANCE = 0.1
+MUTATION_CHANCE = 0.03
 DEFAULT_CHANCE = 0.3
 
 
@@ -61,17 +61,17 @@ def new_subject():
 
 
 def crossover(sbj1, sbj2):
-    new_sbj = []
-    for i in range(len(sbj1)):
-        if random.random() >= 0.5:
-            new_sbj.append(sbj2[i])
-        else:
-            new_sbj.append(sbj1[i])
+    cutoff = random.randint(1, len(sbj1) - 1)
+    if random.random > 0.5:
+        new_sbj = sbj1[:cutoff] + sbj2[cutoff:]
+    else:
+        new_sbj = sbj2[:cutoff] + sbj1[cutoff:]
     # mutation
-    if random.random() < MUTATION_CHANCE:
-        mutation = random.randint(0, len(new_sbj)-1)
-        alt_genes = new_subject()
-        new_sbj[mutation] = alt_genes[mutation]
+    n_mut = int(MUTATION_CHANCE * len(sbj1) + 0.5) # rounded
+    alt_genes = new_subject()
+    mutations = random.choices(range(len(sbj1)), k=n_mut)
+    for i in mutations:
+        new_sbj[i] = alt_genes[i]
     return new_sbj
 
 

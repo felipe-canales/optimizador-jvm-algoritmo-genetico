@@ -11,6 +11,7 @@ excluded.add_argument('--gc', action='store_const', const=['c1','c2','runtime'])
 excluded.add_argument('--c1', action='store_const', const=['gc','c2','runtime'])
 excluded.add_argument('--c2', action='store_const', const=['gc','c1','runtime'])
 excluded.add_argument('--runtime', action='store_const', const=['gc','c1','c2'])
+excluded.add_argument('--no-runtime', action='store_const', const=['runtime'])
 
 args = parser.parse_args()
 
@@ -51,6 +52,8 @@ def main():
         ga.exclude(args.c2)
     elif args.runtime:
         ga.exclude(args.runtime)
+    elif args.no_runtime:
+        ga.exclude(args.no_runtime)
     
     if args.seed:
         print("Using", args.seed, "as seed")
