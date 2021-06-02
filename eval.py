@@ -36,7 +36,11 @@ def evaluate(sbj, its = 2):
             print(str(s.stderr,encoding="latin1"))
             raise RuntimeError("Invalid parameter values")
         elif b"PASSED" in s.stderr:
-            times.append(int(s.stderr.split(b' ')[-3]))
+            try:
+                times.append(int(s.stderr.split(b' ')[-3]))
+            except:
+                print(s.stderr.split(b'\n')[-1])
+                times.append(999999)
         else:
             times.append(999999)
     return sum(times)//its

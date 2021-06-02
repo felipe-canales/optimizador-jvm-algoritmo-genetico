@@ -62,7 +62,7 @@ def new_subject():
 
 def crossover(sbj1, sbj2):
     cutoff = random.randint(1, len(sbj1) - 1)
-    if random.random > 0.5:
+    if random.random() > 0.5:
         new_sbj = sbj1[:cutoff] + sbj2[cutoff:]
     else:
         new_sbj = sbj2[:cutoff] + sbj1[cutoff:]
