@@ -12,7 +12,7 @@ with open(sys.argv[1], "r") as res:
     for line in res.readlines():
         if "Default flags" in line:
             default = int(line.split(' ')[-1])
-        elif "Time:" in line:
+        elif "Score:" in line:
             times.append(int(line.split(' ')[-1]))
 
 plt.figure(figsize=(9,6))
@@ -21,7 +21,7 @@ plt.plot(gens, times, color="blue", label="Customized flags")
 plt.ylim(0, int(max(default, *times) * 1.1))
 plt.xlim(1, 10)
 plt.legend()
-plt.ylabel("Time [ms]")
+plt.ylabel("Score")
 plt.xlabel("Generation")
 if len(sys.argv) == 3:
     plt.title(sys.argv[2])

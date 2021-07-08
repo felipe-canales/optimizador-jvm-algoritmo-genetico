@@ -2,6 +2,7 @@ import json, random
 
 
 MAX_FITNESS = 999999
+MIN_FITNESS = 0
 MUTATION_CHANCE = 0.03
 DEFAULT_CHANCE = 0.3
 
@@ -75,35 +76,37 @@ def crossover(sbj1, sbj2):
     return new_sbj
 
 
-def new_generation(target):
-    return [[new_subject(), MAX_FITNESS] for i in range(target)] #genes, time
+def new_generation(target, val=MAX_FITNESS):
+    return [[new_subject(), val] for i in range(target)] #genes, time
 
 
-def tournament_select(pop, k):
+def tournament_select(pop, k, maximize):
     candidates = random.choices(pop, k=k)
     best = candidates[0]
     for i in range(1,k):
         c = candidates[i]
-        if c[1] <= best[1]:
+        if not maximize and c[1] <= best[1]:
+            best = c
+        elif maximize and c[1] >= best[1]:
             best = c
     return pop.index(best)
 
 
-def next_generation(subjects, target):
+def next_generation(subjects, target, val=MAX_FITNESS, maximize=False):
     new_gen = []
     # selecting survivors
     for i in range(target//2):
-        new_gen.append(subjects.pop(tournament_select(subjects, 5)))
+        new_gen.append(subjects.pop(tournament_select(subjects, 5, maximize)))
     # reproducing survivors
     for i in range(0, (target//2) - 1, 2):
         j = i+1
-        new_gen.append([crossover(subjects[i][0], subjects[j][0]), MAX_FITNESS])
-        new_gen.append([crossover(subjects[i][0], subjects[j][0]), MAX_FITNESS])
+        new_gen.append([crossover(subjects[i][0], subjects[j][0]), val])
+        new_gen.append([crossover(subjects[i][0], subjects[j][0]), val])
     # remaining few
     while len(new_gen) < target:
         print("remaining?")
         i,j = random.choices(range(target//2), k=2)
-        new_gen.append([crossover(subjects[i][0], subjects[j][0]), MAX_FITNESS])
+        new_gen.append([crossover(subjects[i][0], subjects[j][0]), val])
     return new_gen
 
 

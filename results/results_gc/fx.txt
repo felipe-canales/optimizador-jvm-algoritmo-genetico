@@ -1,0 +1,32 @@
+Excluding c1,c2,runtime
+Default flags score: 763
+Generation 1
+-XX:+UseSerialGC -XX:SurvivorRatio=10 -XX:InitialSurvivorRatio=8 -XX:MinSurvivorRatio=4 -XX:SurvivorPadding=1 -XX:TargetSurvivorRatio=75 -XX:TLABAllocationWeight=45 -XX:TLABWasteIncrement=3 -XX:TLABWasteTargetPercent=4 -XX:+ZeroTLAB -XX:+ResizePLAB -XX:PLABWeight=85 -XX:TargetPLABWastePct=16
+  Score: 826
+Generation 2
+-XX:+UseSerialGC -XX:SurvivorRatio=10 -XX:MinSurvivorRatio=5 -XX:SurvivorPadding=4 -XX:TargetSurvivorRatio=45 -XX:MinTLABSize=8K -XX:TLABAllocationWeight=45 -XX:TLABWasteIncrement=5 -XX:TLABWasteTargetPercent=3 -XX:TLABSize=128K -XX:YoungPLABSize=4K -XX:OldPLABSize=8K -XX:+ResizePLAB
+  Score: 840
+Generation 3
+-XX:+UseSerialGC -XX:MinTLABSize=8K -XX:TLABAllocationWeight=15 -XX:TLABRefillWasteFraction=128 -XX:TLABWasteIncrement=7 -XX:TLABWasteTargetPercent=6 -XX:+ZeroTLAB -XX:TLABSize=128K -XX:YoungPLABSize=16K -XX:OldPLABSize=16K -XX:+ResizePLAB -XX:PLABWeight=75
+  Score: 827
+Generation 4
+-XX:+UseSerialGC -XX:MinTLABSize=2K -XX:TLABAllocationWeight=45 -XX:TLABRefillWasteFraction=256 -XX:TLABWasteTargetPercent=6 -XX:+ZeroTLAB -XX:TLABSize=128K -XX:YoungPLABSize=32K -XX:OldPLABSize=32K -XX:+ResizePLAB -XX:PLABWeight=85
+  Score: 829
+Generation 5
+-XX:+UseSerialGC -XX:SurvivorRatio=10 -XX:InitialSurvivorRatio=8 -XX:MinSurvivorRatio=4 -XX:SurvivorPadding=1 -XX:TargetSurvivorRatio=75 -XX:TLABAllocationWeight=45 -XX:TLABWasteIncrement=3 -XX:TLABWasteTargetPercent=4 -XX:+ZeroTLAB -XX:+ResizePLAB -XX:PLABWeight=85 -XX:TargetPLABWastePct=16
+  Score: 822
+Generation 6
+-XX:+UseSerialGC -XX:SurvivorRatio=4 -XX:MinSurvivorRatio=6 -XX:SurvivorPadding=5 -XX:TargetSurvivorRatio=65 -XX:MinTLABSize=2K -XX:TLABRefillWasteFraction=32 -XX:TLABWasteIncrement=6 -XX:TLABWasteTargetPercent=3 -XX:TLABSize=128K -XX:YoungPLABSize=4K -XX:OldPLABSize=16K -XX:-ResizePLAB
+  Score: 812
+Generation 7
+-XX:+UseSerialGC -XX:SurvivorRatio=6 -XX:InitialSurvivorRatio=6 -XX:MinSurvivorRatio=3 -XX:SurvivorPadding=2 -XX:TargetSurvivorRatio=65 -XX:TLABRefillWasteFraction=32 -XX:TLABWasteIncrement=4 -XX:TLABWasteTargetPercent=5 -XX:+ZeroTLAB -XX:YoungPLABSize=4K -XX:OldPLABSize=16K -XX:+ResizePLAB -XX:PLABWeight=65
+  Score: 815
+Generation 8
+-XX:+UseSerialGC -XX:MinTLABSize=8K -XX:TLABAllocationWeight=15 -XX:TLABRefillWasteFraction=128 -XX:TLABWasteIncrement=7 -XX:TLABWasteTargetPercent=6 -XX:+ZeroTLAB -XX:TLABSize=128K -XX:YoungPLABSize=16K -XX:OldPLABSize=16K -XX:+ResizePLAB -XX:PLABWeight=75
+  Score: 810
+Generation 9
+-XX:+UseSerialGC -XX:InitialSurvivorRatio=12 -XX:MinSurvivorRatio=3 -XX:SurvivorPadding=5 -XX:TargetSurvivorRatio=25 -XX:MinTLABSize=4K -XX:TLABAllocationWeight=45 -XX:TLABWasteIncrement=4 -XX:TLABWasteTargetPercent=1 -XX:+ZeroTLAB -XX:TLABSize=128K -XX:YoungPLABSize=4K -XX:OldPLABSize=4K -XX:-ResizePLAB
+  Score: 814
+Generation 10
+-XX:+UseSerialGC -XX:MinTLABSize=2K -XX:TLABRefillWasteFraction=256 -XX:TLABWasteIncrement=5 -XX:TLABWasteTargetPercent=2 -XX:TLABSize=64K -XX:YoungPLABSize=16K -XX:-ResizePLAB
+  Score: 823
